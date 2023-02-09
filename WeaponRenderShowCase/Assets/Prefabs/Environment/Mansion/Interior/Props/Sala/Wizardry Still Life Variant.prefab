@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &160244006111394913
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.6426144
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.24035
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 56.993618
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.9788735
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.12940842
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.15807965
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.008435625
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+      propertyPath: m_Name
+      value: Wizardry Still Life Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+--- !u!1 &1078652530451972400 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ca8b647e144b6a24c91eb9ee473edff2, type: 3}
+  m_PrefabInstance: {fileID: 160244006111394913}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1113953215007537904
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078652530451972400}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6120591, y: 0.1891323, z: 0.7977283}
+  m_Center: {x: -0.072661236, y: 0.09084824, z: 0.009599178}

@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4326516626681694826
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.042962
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.1173038
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17.77974
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.2863192
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.049057193
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.94931746
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.12004606
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4683669308469848369, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a781eafedcad527479676b0c739a6caa, type: 2}
+    - target: {fileID: -1461304994638716399, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a781eafedcad527479676b0c739a6caa, type: 2}
+    - target: {fileID: -678588488315902003, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a781eafedcad527479676b0c739a6caa, type: 2}
+    - target: {fileID: 919132149155446097, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+      propertyPath: m_Name
+      value: OroLingotes
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+--- !u!1 &3516104196004919099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4738a95537c17884b9b3a0c7c178ad9d, type: 3}
+  m_PrefabInstance: {fileID: 4326516626681694826}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &235871152
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3516104196004919099}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1131909228206969903
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3516104196004919099}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
