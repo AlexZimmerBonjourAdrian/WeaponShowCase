@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 15ac2937e16de054cbf21aa6eb006f79
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 2
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3242
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4204eff8bf46d748be6028f81e98edc
+      internalID: 643304953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 3242
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c44f87ba1286b6547a6021052c3fcb36
+      internalID: -485899484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 3056
+        y: 3242
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f481c1e8e6b58bf41a012a07cd5f8cd4
+      internalID: 1917515732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 4584
+        y: 3242
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 819a92c70c36c82449db47773abcab2f
+      internalID: 487203135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 6112
+        y: 3242
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b41174d23e643b488c6e70203c611ad
+      internalID: 1422288154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2388
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8b75d441c314a645a7a6a7db1c333c5
+      internalID: -1180587736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 2388
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc12571c6762c8041a382c93c71ba84e
+      internalID: 465066998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 3056
+        y: 2388
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2be02b5475289d48b74d78145608023
+      internalID: 577472506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 4584
+        y: 2388
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 854829958c270b943b175828c441c7dc
+      internalID: -2051742037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 6112
+        y: 2388
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45099f988109a97448d381b3570c6cc2
+      internalID: 15224701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1534
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1d946dcd9bb0d043ac377043280b404
+      internalID: -653449978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 1534
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5157cbee255357468e4aaae165d2109
+      internalID: 515577239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 3056
+        y: 1534
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4c3739cb5525bc4fbc45d6d9a4bcef2
+      internalID: 1650346326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 4584
+        y: 1534
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32610ae4bd58b2847ba27dbf7b09eec9
+      internalID: 265286056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 6112
+        y: 1534
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45c267d7d323c83449e54a413972d772
+      internalID: -750852242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 680
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 769fe0c7f5515bc449b4ff3e3c547653
+      internalID: 1724413123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 680
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 945a4d6cfb921f342a53f1fab6598acc
+      internalID: 1412730187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 3056
+        y: 680
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0c7ea6f9168e09468cdaa1cd3ae0146
+      internalID: 426228547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 4584
+        y: 680
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8524c27207923244c95d98e046ff0318
+      internalID: 213765888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PPK-Animation-Reload-Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 6112
+        y: 680
+        width: 1528
+        height: 854
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 340dc961b8dbf094cae2b2d9245410a5
+      internalID: -805365550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 4402d73160b12704d8007fd2de680cb0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      PPK-Animation-Reload-Sheet_18: 213765888
+      PPK-Animation-Reload-Sheet_0: 643304953
+      PPK-Animation-Reload-Sheet_2: 1917515732
+      PPK-Animation-Reload-Sheet_9: 15224701
+      PPK-Animation-Reload-Sheet_5: -1180587736
+      PPK-Animation-Reload-Sheet_6: 465066998
+      PPK-Animation-Reload-Sheet_10: -653449978
+      PPK-Animation-Reload-Sheet_7: 577472506
+      PPK-Animation-Reload-Sheet_16: 1412730187
+      PPK-Animation-Reload-Sheet_17: 426228547
+      PPK-Animation-Reload-Sheet_8: -2051742037
+      PPK-Animation-Reload-Sheet_11: 515577239
+      PPK-Animation-Reload-Sheet_13: 265286056
+      PPK-Animation-Reload-Sheet_1: -485899484
+      PPK-Animation-Reload-Sheet_15: 1724413123
+      PPK-Animation-Reload-Sheet_19: -805365550
+      PPK-Animation-Reload-Sheet_3: 487203135
+      PPK-Animation-Reload-Sheet_12: 1650346326
+      PPK-Animation-Reload-Sheet_14: -750852242
+      PPK-Animation-Reload-Sheet_4: 1422288154
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
