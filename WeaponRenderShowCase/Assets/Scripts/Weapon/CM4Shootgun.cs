@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CM4Shootgun : CArmed
 {
@@ -99,6 +100,7 @@ public class CM4Shootgun : CArmed
         bulletTrailPreb = GameObject.Find("WeaponSpawnPoint");
         marketUI = GameObject.Find("UICrosshair");
         BulletTrail = GameObject.Find("HotTrail").GetComponent<TrailRenderer>();
+        NameAnimation = GameObject.Find("NameAnimation").GetComponent<Text>();
         playerCamera = GameObject.Find("PlayerCam").transform;
         setState((int)GunState.Setup);
         audioSource = GetComponent<AudioSource>();
@@ -115,12 +117,17 @@ public class CM4Shootgun : CArmed
         switch (state)
         {
             case (int)GunState.Idle:
+                AnimationNameFunction("m4Shootgun-Idle");
                 AnimatorStateInfo currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 Debug.Log("Estado actual" + state);
                 float TimeFinish = currentState.normalizedTime;
                 float TimeAudioclip = audioSource.time;
                 float audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
-
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXIdle;
+                    audioSource.Play();
+                }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("m4Shootgun-Idle"))
                 {
                     _anim.Play("m4Shootgun-Idle");
@@ -128,50 +135,66 @@ public class CM4Shootgun : CArmed
                 if ((Input.GetKeyDown(KeyCode.R) && extra_ammo > 0) && ammo_in_mag >= 1 && ammo_in_mag != mag_size /*&& ammo_in_mag < 1*/ /*&& isReload==true*/)
                 {
                     //iniciar la animacion de recarga que tiene las valas normales
+                    audioSource.Stop();
                     setState((int)GunState.Reload);
 
                 }
                 else if ((Input.GetKeyDown(KeyCode.R) && extra_ammo > 0) && ammo_in_mag <= 0 && ammo_in_mag != mag_size /*&& isReload == true*/)
                 {
                     //iniciar la animacion de recarga que no tiene balas
+                    audioSource.Stop();
                     setState((int)GunState.ReloadNotAmmo);
                 }
 
                 if (Input.GetKey(KeyCode.Mouse0) && (timeSinceLastShot >= fireRate))
                 {
-                    //if (!isAuto)
-                    //{
-                    //    setState((int)GunState.Shoot);
-                    //}
+                    if (!isAuto)
+                    {
+                        audioSource.Stop();
+                        setState((int)GunState.Shoot);
+                    }
                     if (isAuto)
                     {
+                        audioSource.Stop();
                         setState((int)GunState.AutoShoot);
                     }
                 }
                 else
                 {
+                    audioSource.Stop();
                     timeSinceLastShot += Time.deltaTime;
                 }
                 break;
 
-            //case (int)GunState.Shoot:
+            case (int)GunState.Shoot:
+                AnimationNameFunction("m4Shootgun-Shoot");
+                currentState = _anim.GetCurrentAnimatorStateInfo(0);
+                TimeFinish = currentState.normalizedTime;
+                TimeAudioclip = audioSource.time;
+                audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXSingleFire;
+                    audioSource.Play();
+                }
 
+                if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("m4Shootgun-Shoot"))
+                {
+                    _anim.Play("m4Shootgun-Shoot");
+                    //ammo_in_mag--;
+                    Fire();
+                    timeSinceLastShot = 0f;
+                }
 
-            //    if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("m4Shootgun-Shoot"))
-            //    {
-            //        _anim.Play("m4Shootgun-Shoot");
-            //        //ammo_in_mag--;
-            //        Fire();
-            //        timeSinceLastShot = 0f;
-            //    }
-
-            //    if (TimeFinish > .98f)
-            //    {
-            //        setState((int)GunState.Idle);
-            //    }
-            //    break;
+                if (TimeFinish > .98f)
+                {
+                    audioSource.Stop();
+                    setState((int)GunState.Idle);
+                }
+                break;
 
             case (int)GunState.AutoShoot:
+                AnimationNameFunction("m4Shootgun-Shoot-Auto");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
@@ -180,7 +203,11 @@ public class CM4Shootgun : CArmed
                 //float TimeAudioclip = audioSource.time;
                 //float audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
 
-
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXAutoShoot;
+                    audioSource.Play();
+                }
 
                 if ((ammo_in_mag > 0) && (timeSinceLastShot >= fireRate))
                 {
@@ -212,11 +239,18 @@ public class CM4Shootgun : CArmed
 
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
                 break;
 
             case (int)GunState.Desequip:
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXDesequip;
+                    audioSource.Play();
+                }
+                AnimationNameFunction("m4Shootgun-Shoot-Auto");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
@@ -225,6 +259,12 @@ public class CM4Shootgun : CArmed
                 break;
 
             case (int)GunState.Reload:
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXReload;
+                    audioSource.Play();
+                }
+                AnimationNameFunction("m4Shoothun-Reload-Normal");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
@@ -256,12 +296,19 @@ public class CM4Shootgun : CArmed
 
                 if (TimeFinish > .98f)
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
 
                 break;
 
             case (int)GunState.ReloadNotAmmo:
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXReloadNOTAMMO;
+                    audioSource.Play();
+                }
+                AnimationNameFunction("m4Shootgun-Reload-NotAmmo");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
@@ -298,6 +345,12 @@ public class CM4Shootgun : CArmed
                 break;
 
             case (int)GunState.Setup:
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXSetup;
+                    audioSource.Play();
+                }
+                AnimationNameFunction("m4Shootgun-Setup");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
@@ -313,13 +366,20 @@ public class CM4Shootgun : CArmed
                 }
                 if (TimeFinish > .9f)
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
 
                 break;
 
             case (int)GunState.Drop:
-                  currentState = _anim.GetCurrentAnimatorStateInfo(0);
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXDrop;
+                    audioSource.Play();
+                }
+                AnimationNameFunction("m4Shootgun-Drop");
+                currentState = _anim.GetCurrentAnimatorStateInfo(0);
               
                 TimeAudioclip = audioSource.time;
                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
@@ -345,10 +405,10 @@ public class CM4Shootgun : CArmed
                 break;
         }
 
-        //if (Input.GetKeyDown(KeyCode.B))
-        //{
-        //    isAuto = !isAuto;
-        //}
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            isAuto = !isAuto;
+        }
 
         //if (input.getkeydown(keycode.g))
         //{
@@ -441,15 +501,17 @@ public class CM4Shootgun : CArmed
     public override void Equip()
     {
         base.Equip();
+        setState((int)GunState.Setup);
     }
     public override void Desequip()
     {
         base.Desequip();
+        setState((int)GunState.Desequip);
     }
 
     public override void Drop()
     {
-        base.Drop();
+        setState((int)GunState.Drop);
     }
 
     public void Fire()
@@ -651,5 +713,9 @@ public class CM4Shootgun : CArmed
             }
 
         }
+    }
+    public override void AnimationNameFunction(string nameAnimation)
+    {
+        base.AnimationNameFunction(nameAnimation);
     }
 }

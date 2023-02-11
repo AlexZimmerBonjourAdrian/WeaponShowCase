@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class CCalico : CArmed
 {
     [Header("Gun Setting")]
@@ -68,8 +68,20 @@ public class CCalico : CArmed
     private float BulletSpeed = 100;
     [SerializeField]
     private float ShootDelay = 0.5f;
+
+    public AudioSource audioSource;
+    [SerializeField] private AudioClip SFXSetup;
+    [SerializeField] private AudioClip SFXAutoShoot;
+    [SerializeField] private AudioClip SFXReloadNOTAMMO;
+    [SerializeField] private AudioClip SFXReload;
+    [SerializeField] private AudioClip SFXSingleFire;
+    [SerializeField] private AudioClip SFXDesequip;
+    [SerializeField] private AudioClip SFXDrop;
+    [SerializeField] private AudioClip SFXIdle;
+
+
     // Start is called before the first frame update
-   void Start()
+    void Start()
     {
         _canShoot = true;
         transform.localPosition = new Vector3(0.0021f, -0.0222f, -0.0002f);
@@ -77,10 +89,12 @@ public class CCalico : CArmed
         _Shootposition = GetComponentInChildren<Transform>();
         _anim = GetComponent<Animator>();
         recoil_Script = GameObject.Find("CameraRecoil").GetComponent<CRecoil>();
+        NameAnimation = GameObject.Find("NameAnimation").GetComponent<Text>();
         bulletTrailPreb = GameObject.Find("WeaponSpawnPoint");
         marketUI = GameObject.Find("UICrosshair");
         BulletTrail = GameObject.Find("HotTrail").GetComponent<TrailRenderer>();
         playerCamera = GameObject.Find("PlayerCam").transform;
+        audioSource = GetComponent<AudioSource>();
         bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
         setState((int)GunState.Setup);
         isAuto = true;
@@ -96,6 +110,12 @@ public class CCalico : CArmed
         switch (state)
         {
             case (int)GunState.Idle:
+                AnimationNameFunction("Calico-Idle");
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXIdle;
+                    audioSource.Play();
+                }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("Calico-Idle"))
                 {
                     _anim.Play("Calico-Idle");
@@ -114,10 +134,10 @@ public class CCalico : CArmed
 
                 if (Input.GetKey(KeyCode.Mouse0) && (timeSinceLastShot >= fireRate))
                 {
-                    //if (!isAuto)
-                    //{
-                    //    setState((int)GunState.Shoot);
-                    //}
+                    if (!isAuto)
+                    {
+                        setState((int)GunState.Shoot);
+                    }
                     if (isAuto)
                     {
                         setState((int)GunState.AutoShoot);
@@ -131,7 +151,12 @@ public class CCalico : CArmed
 
             case (int)GunState.Shoot:
 
-
+                AnimationNameFunction("Calico-Shoot-Single");
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXSingleFire;
+                    audioSource.Play();
+                }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("Calico-Shoot-Single"))
                 {
                     _anim.Play("Calico-Shoot-Single");
@@ -152,7 +177,12 @@ public class CCalico : CArmed
                 TimeFinish = currentState.normalizedTime;
 
 
-
+                AnimationNameFunction("calico-Shoot-Auto");
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXAutoShoot;
+                    audioSource.Play();
+                }
                 if ((ammo_in_mag > 0) && (timeSinceLastShot >= fireRate))
                 {
                     if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("calico-Shoot-Auto"))
@@ -176,6 +206,7 @@ public class CCalico : CArmed
                 {
                     if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("Calico-Idle"))
                     {
+                        audioSource.Stop();
                         _anim.Play("Calico-Idle");
                     }
                 }
@@ -183,16 +214,23 @@ public class CCalico : CArmed
 
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
                 break;
 
             case (int)GunState.Desequip:
-
+                AnimationNameFunction("calico-Shoot-Auto");
                 break;
 
             case (int)GunState.Reload:
 
+                AnimationNameFunction("calico-reload");
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXReload;
+                    audioSource.Play();
+                }
                 //isReload = false;
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("calico-reload"))
                 {
@@ -219,12 +257,19 @@ public class CCalico : CArmed
 
                 if (TimeFinish > .98f)
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
 
                 break;
 
             case (int)GunState.ReloadNotAmmo:
+                AnimationNameFunction("Calico-Reload-NotAmmo");
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXReloadNOTAMMO;
+                    audioSource.Play();
+                }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("Calico-Reload-NotAmmo"))
                 {
                     _anim.Play("Calico-Reload-NotAmmo");
@@ -246,11 +291,18 @@ public class CCalico : CArmed
                 }
                 if (TimeFinish > .98f)
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
                 break;
 
             case (int)GunState.Setup:
+                AnimationNameFunction("Calico-setup");
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXSetup;
+                    audioSource.Play();
+                }
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
 
@@ -261,6 +313,7 @@ public class CCalico : CArmed
                 }
                 if (TimeFinish > .9f)
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
 
@@ -268,12 +321,19 @@ public class CCalico : CArmed
 
             case (int)GunState.Drop:
                 float timeToDeath = currentState.normalizedTime;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXDrop;
+                    audioSource.Play();
+                }
+                AnimationNameFunction("calico-Drop");
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("calico-Drop"))
                 {
                     _anim.Play("calico-Drop");
                 }
                 if (timeToDeath > .9f)
                 {
+                    audioSource.Stop();
                     Destroy(gameObject);
                 }
                 break;
@@ -283,7 +343,7 @@ public class CCalico : CArmed
                 break;
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             isAuto = !isAuto;
         }
@@ -447,10 +507,18 @@ public class CCalico : CArmed
     public override void Equip()
     {
         base.Equip();
+        setState((int)GunState.Setup);
     }
     public override void Desequip()
     {
         base.Desequip();
+        setState((int)GunState.Desequip);
+    }
+
+    public override void Drop()
+    {
+        base.Drop();
+        setState((int)GunState.Drop);
     }
     IEnumerator ShootGun()
     {
@@ -496,6 +564,11 @@ public class CCalico : CArmed
             }
 
         }
+    }
+
+    public override void AnimationNameFunction(string nameAnimation)
+    {
+        base.AnimationNameFunction(nameAnimation);
     }
 
 }

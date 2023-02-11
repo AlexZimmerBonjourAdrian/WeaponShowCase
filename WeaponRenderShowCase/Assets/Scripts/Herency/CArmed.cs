@@ -96,6 +96,14 @@ public class CArmed : MonoBehaviour
     protected CCharacterBehaviour characterBehaviour;
 
 
+    [Header("UIShowCase")]
+    [SerializeField]
+    protected Text NameAnimation;
+
+    //Optional Debug Option
+    //NumberFrame
+
+    
 
 
 
@@ -379,14 +387,9 @@ public class CArmed : MonoBehaviour
         return returnSpeed;
     }
 
-    public virtual void DebugFunction()
+    public virtual void AnimationNameFunction(string nameAnimation)
     {
-        Debug.Log("IsShoting: " + isShooting);
-
-        //Debug.Log("IsReload: " + isReload);
-
-        //Debug.Log("IsCrossing: " + isCrossing);
-
+        NameAnimation.text = nameAnimation;
     }
 
     //public void BulletHole()
@@ -408,7 +411,7 @@ public class CArmed : MonoBehaviour
     //    }
 
     //}
-
+     
 }
 
 

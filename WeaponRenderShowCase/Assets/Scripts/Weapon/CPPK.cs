@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 //using UnityEngine.InputSystem;
 
 public class CPPK : CArmed
@@ -59,6 +60,20 @@ public class CPPK : CArmed
     [SerializeField] public string[] ListAniamtionArrayDebug;
     public uint ValueIndex = 0;
     float timeSinceLastShot = 0f;
+
+    [SerializeField] private AudioClip SFXSummon;
+    [SerializeField] private AudioClip SFXReloadNOTAMMO;
+    [SerializeField] private AudioClip SFXReload;
+    [SerializeField] private AudioClip SFXSingleFire;
+    [SerializeField] private AudioClip SFXSingleFireNotAmmo;
+    [SerializeField] private AudioClip SFXDesequip;
+    [SerializeField] private AudioClip SFXDesequipNotAmmo;
+    [SerializeField] private AudioClip SFXDrop;
+    [SerializeField] private AudioClip SFXDropNotAmmo;
+    [SerializeField] private AudioClip SFXIdle;
+    [SerializeField] private AudioClip SFXIdleNotAmmo;
+
+    public AudioSource audioSource;
     new void Start()
     {
        
@@ -66,6 +81,7 @@ public class CPPK : CArmed
         _anim = GetComponent<Animator>();
         recoil_Script = GameObject.Find("CameraRecoil").GetComponent<CRecoil>();
         bulletTrailPreb = GameObject.Find("WeaponSpawnPoint");
+        NameAnimation = GameObject.Find("NameAnimation").GetComponent<Text>();
         BulletTrail = GameObject.Find("HotTrail").GetComponent<TrailRenderer>();
         playerCamera = GameObject.Find("PlayerCam").transform;
         marketUI = GameObject.Find("UICrosshair");
@@ -108,6 +124,7 @@ public class CPPK : CArmed
         switch (state)
         {
             case (int)GunState.IdleNotAmmo:
+                AnimationNameFunction("ppk-idle-NotAmmo");
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ppk-idle-NotAmmo"))
                 {
                     _anim.Play("ppk-idle-NotAmmo");
@@ -129,6 +146,7 @@ public class CPPK : CArmed
                 }
                 break;
             case (int)GunState.Idle:
+                AnimationNameFunction("ppk-idle-normal");
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ppk-idle-normal"))
                 {
                     _anim.Play("ppk-idle-normal");
@@ -160,7 +178,7 @@ public class CPPK : CArmed
 
             case (int)GunState.Shoot:
 
-
+                AnimationNameFunction("ppk-Shoot-Normal");
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ppk-Shoot-Normal"))
                 {
                     _anim.Play("ppk-Shoot-Normal");
@@ -176,6 +194,7 @@ public class CPPK : CArmed
                 break;
 
             case (int)GunState.ShootNotAmmo:
+                AnimationNameFunction("PPK-Fire-NotAmmo");
                 Debug.LogWarning("timeSinceLastShot es" + timeSinceLastShot);
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
@@ -207,6 +226,7 @@ public class CPPK : CArmed
             case (int)GunState.Reload:
 
                 //isReload = false;
+                AnimationNameFunction("ppk-Reload-Normal");
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ppk-Reload-Normal"))
                 {
                     _anim.Play("ppk-Reload-Normal");
@@ -238,9 +258,11 @@ public class CPPK : CArmed
                 break;
 
             case (int)GunState.ReloadNotAmmo:
-               
+
+                AnimationNameFunction("ppk-Reload-Notammo");
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ppk-Reload-Notammo"))
                 {
+                   
                     _anim.Play("ppk-Reload-Notammo");
                     //_anim.Play("m4Shoothun-Reload-Normal");
                     amoutNeeded = mag_size - ammo_in_mag;
@@ -265,6 +287,7 @@ public class CPPK : CArmed
                 break;
 
             case (int)GunState.Summon:
+                AnimationNameFunction("ppk-Summon");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
 
@@ -281,6 +304,7 @@ public class CPPK : CArmed
                 break;
 
             case (int)GunState.Drop:
+                AnimationNameFunction("ppk-Drop-normal");
                 float timeToDeath = currentState.normalizedTime;
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ppk-Drop-normal"))
                 {
@@ -293,7 +317,8 @@ public class CPPK : CArmed
                 break;
             
             case (int)GunState.DropNotAmmo:
-                 timeToDeath = currentState.normalizedTime;
+                AnimationNameFunction("ppk-Drop-NotAmmo");
+                timeToDeath = currentState.normalizedTime;
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ppk-Drop-NotAmmo"))
                 {
                     _anim.Play("ppk-Drop-NotAmmo");
@@ -417,15 +442,17 @@ public class CPPK : CArmed
     public override void Equip()
     {
         base.Equip();
+        setState((int)GunState.Summon);
     }
     public override void Desequip()
     {
         base.Desequip();
+        setState((int)GunState.Desequip);
     }
 
     public override void Drop()
     {
-        base.Drop();
+        setState((int)GunState.Drop);
     }
 
     IEnumerator ShootGun()
@@ -592,6 +619,11 @@ public class CPPK : CArmed
     public void setState(int newState)
     {
         state = newState;
+    }
+
+    public override void AnimationNameFunction(string nameAnimation)
+    {
+        base.AnimationNameFunction(nameAnimation);
     }
 }
 

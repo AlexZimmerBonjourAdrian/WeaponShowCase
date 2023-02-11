@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CAK74M : CArmed
 {
@@ -90,6 +91,7 @@ public class CAK74M : CArmed
         recoil_Script = GameObject.Find("CameraRecoil").GetComponent<CRecoil>();
         bulletTrailPreb = GameObject.Find("WeaponSpawnPoint");
         marketUI = GameObject.Find("UICrosshair");
+        NameAnimation = GameObject.Find("NameAnimation").GetComponent<Text>();
         BulletTrail = GameObject.Find("HotTrail").GetComponent<TrailRenderer>();
         playerCamera = GameObject.Find("PlayerCam").transform;
         setState((int)GunState.Setup);
@@ -137,12 +139,17 @@ public class CAK74M : CArmed
         switch (state)
         {
             case (int)GunState.Idle:
+                AnimationNameFunction("ak74m-Idle");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 float TimeAudioclip = audioSource.time;
                 float audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
-                
-              
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXIdle;
+                    audioSource.Play();
+                }
+
                 if ((Input.GetKeyDown(KeyCode.R) && extra_ammo > 0) && ammo_in_mag >= 1 && ammo_in_mag != mag_size /*&& ammo_in_mag < 1*/ /*&& isReload==true*/)
                 {
                     //iniciar la animacion de recarga que tiene las valas normales
@@ -186,7 +193,7 @@ public class CAK74M : CArmed
                 break;
 
             case (int)GunState.Shoot:
-
+                AnimationNameFunction("AK74m-Fire");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
@@ -213,52 +220,13 @@ public class CAK74M : CArmed
                 break;
 
             case (int)GunState.AutoShoot:
+                AnimationNameFunction("aK74M-Shoot-Auto");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
                 //currentState = _anim.GetCurrentAnimatorStateInfo(0);
-                //TimeFinish = currentState.normalizedTime;
-
-
-
-                //if ((ammo_in_mag > 0) && (timeSinceLastShot >= fireRate))
-                //{
-                //    if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("aK74M-Shoot-Auto"))
-                //    {
-                //        _anim.Play("aK74M-Shoot-Auto");
-                //    }
-                //    if (TimeFinish > .8f)
-                //    {
-                //        _anim.Play("aK74M-Shoot-Auto");
-                //    }
-                //    Debug.Log("Entra");
-                //    //_anim.Play("mp5k-shoot-automatic");
-                //    Fire();
-                //    timeSinceLastShot = 0f;
-                //    //.RecoilFire();
-                //    //ammo_in_mag--;
-                //}
-                //if ((ammo_in_mag <= 0))
-                //{
-                //    if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ak74m-Idle"))
-                //    {
-                //        _anim.Play("ak74m-Idle");
-                //    }
-                //}
-                //timeSinceLastShot += Time.deltaTime;
-
-                //if (Input.GetKeyUp(KeyCode.Mouse0))
-                //{
-                //    setState((int)GunState.Idle);
-                //}
-
-
-                //if (!audioSource.isPlaying)
-                //{
-                //    audioSource.clip = SFXAutoShoot;
-                //    audioSource.Play();
-                //}
+               
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXAutoShoot;
@@ -322,6 +290,7 @@ public class CAK74M : CArmed
                 break;
 
             case (int)GunState.Desequip:
+                AnimationNameFunction("ak74m-Dsequip");
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ak74m-Dsequip"))
                 {
                     _anim.Play("ak74m-Dsequip");
@@ -330,8 +299,7 @@ public class CAK74M : CArmed
                 break;
 
             case (int)GunState.Reload:
-
-                //isReload = false;
+                AnimationNameFunction("aK74M-Reload-Normal");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
@@ -374,6 +342,7 @@ public class CAK74M : CArmed
                 break;
 
             case (int)GunState.ReloadNotAmmo:
+                AnimationNameFunction("AK74M-Reload-NotAmmo");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
@@ -410,6 +379,7 @@ public class CAK74M : CArmed
                 break;
 
             case (int)GunState.Setup:
+                AnimationNameFunction("ak74m-setup");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
@@ -434,6 +404,7 @@ public class CAK74M : CArmed
                 break;
 
             case (int)GunState.Drop:
+                AnimationNameFunction("ak74M-Drop");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
@@ -615,12 +586,13 @@ public class CAK74M : CArmed
     public override void Drop()
     {
         base.Drop();
-
-
+        setState((int)GunState.Drop);
     }
-          
-        
-    
+
+
+
+
+
     //public override void Trail(Transform BulletSpawnPoint)
     //{
     //    base.Trail(BulletSpawnPoint);
@@ -741,4 +713,8 @@ public class CAK74M : CArmed
     //    Gizmos.color = new Color32(255, 120, 11, 170);
     //    Gizmos.DrawLine(playerCamera.position, playerCamera.forward);
     //}
+    public override void AnimationNameFunction(string nameAnimation)
+    {
+        base.AnimationNameFunction(nameAnimation);
+    }
 }

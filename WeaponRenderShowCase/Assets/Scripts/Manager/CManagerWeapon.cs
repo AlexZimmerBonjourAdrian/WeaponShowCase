@@ -62,7 +62,7 @@ namespace DL
         
         public void AddWeapon(GameObject Weapon)
         {
-            if(weapons.Count <= 1)
+            if(weapons.Count <= 5)
             {
                 foreach(GameObject w in weapons)
                 {
@@ -174,10 +174,10 @@ namespace DL
             GameObject obj = (GameObject)Instantiate(_Weapon, post, Quaternion.identity);
            
             obj.transform.parent = gameObject.transform;
-            weapons.Add(obj);
-            obj.transform.localEulerAngles= Vector3.zero;
+            weapons.Add(obj); obj.transform.localEulerAngles= Vector3.zero;
             obj.transform.localPosition = new Vector3(vectorOffsetSpawnWeapon.x, vectorOffsetSpawnWeapon.y, vectorOffsetSpawnWeapon.z);
             obj.transform.localRotation = Quaternion.Euler(new Vector3(vectorOffsetRotationWeapon.x,vectorOffsetRotationWeapon.y,vectorOffsetRotationWeapon.z));
+           
             CArmed newWeapon = obj.GetComponent<CArmed>();
             _ListHaveWeapon.Add(newWeapon);
 
@@ -206,6 +206,36 @@ namespace DL
             {
                 AutoSpawn();  
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                AddWeapon(auto_spawn_weapon[0]);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                AddWeapon(auto_spawn_weapon[1]);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                AddWeapon(auto_spawn_weapon[2]);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                AddWeapon(auto_spawn_weapon[3]);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                AddWeapon(auto_spawn_weapon[4]);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                AddWeapon(auto_spawn_weapon[5]);
+            }
+
+
         }
         //private void Desequiped()
         //{
@@ -231,7 +261,7 @@ namespace DL
         
         private void AutoSpawn()
         {
-            int autoSpawn = Random.Range(0, auto_spawn_weapon.Length);
+            int autoSpawn = Random.Range(0, auto_spawn_weapon.Length-1);
             AddWeapon(auto_spawn_weapon[autoSpawn]);
         }
 

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 public class CMP5K : CArmed
 {
     // Start is called before the first frame update
@@ -56,6 +58,7 @@ public class CMP5K : CArmed
     [SerializeField] private AudioClip SFXSingleFire;
     [SerializeField] private AudioClip SFXDesequip;
     [SerializeField] private AudioClip SFXDrop;
+    [SerializeField] private AudioClip SFXIdle;
 
     //Animacoon Controller
     private Animator _anim;
@@ -104,7 +107,7 @@ public class CMP5K : CArmed
         recoil_Script = GameObject.Find("CameraRecoil").GetComponent<CRecoil>();
         playerCamera = GameObject.Find("PlayerCam").transform;
        bulletTrailPreb = GameObject.Find("WeaponSpawnPoint");
-        //maskEnemy = LayerMask.NameToLayer("enemy");
+        NameAnimation = GameObject.Find("NameAnimation").GetComponent<Text>();
         setState((int)GunState.Setup);
         audioSource = GetComponent<AudioSource>();
         bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
@@ -160,19 +163,28 @@ public class CMP5K : CArmed
         switch (state)
         {
             case (int)GunState.Idle:
-
+                AnimationNameFunction("mp5k-Idle");
+                float TimeAudioclip = audioSource.time;
+                float audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXIdle;
+                    audioSource.Play();
+                }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("mp5k-Idle"))
                 {
                     _anim.Play("mp5k-Idle");
                 }
                 if ((Input.GetKeyDown(KeyCode.R) && extra_ammo > 0) && ammo_in_mag > 2 /*&& ammo_in_mag < 1*/ /*&& isReload==true*/)
                 {
+                    audioSource.Stop();
                     //iniciar la animacion de recarga que tiene las valas normales
                     setState((int)GunState.Reload);
 
                 }
                 else if ((Input.GetKeyDown(KeyCode.R) && extra_ammo > 0) && ammo_in_mag <= 1 /*&& isReload == true*/)
                 {
+                    audioSource.Stop();
                     //iniciar la animacion de recarga que no tiene balas
                     setState((int)GunState.ReloadNotAmmo);
                 }
@@ -181,10 +193,12 @@ public class CMP5K : CArmed
                 {
                     if (!isAuto)
                     {
+                        audioSource.Stop();
                         setState((int)GunState.Shoot);
                     }
                     if (isAuto)
                     {
+                        audioSource.Stop();
                         setState((int)GunState.AutoShoot);
                     }
                 }
@@ -197,39 +211,39 @@ public class CMP5K : CArmed
             case (int)GunState.Shoot:
 
                 //_canShoot = true;
-
-
+                TimeAudioclip = audioSource.time;
+                audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
+                AnimationNameFunction("mp5k-Shoot");
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXSingleFire;
+                    audioSource.Play();
+                }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("mp5k-Shoot"))
                 {
                     _anim.Play("mp5k-Shoot");
-                    //ammo_in_mag--;
-                   // timeScienceLastShot = 0f;
+                    
                 }
                 if (Input.GetButton("Fire1") && ammo_in_mag > 0)
                 {
-                    StartCoroutine(ShootGun());
+                   Fire();
 
                 }
-                //_anim.Play("mp5k-Shoot");
-
-                //timeScienceLastShot += Time.deltaTime;
+              
                 if (TimeFinish > .9f)
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
-                //else
-                //{
-                //    timeScienceLastShot += Time.deltaTime;
-                //setState((int)GunState.Idle);
-                //}
-
                 break;
 
             case (int)GunState.AutoShoot:
+                AnimationNameFunction("mp5k-shoot-automatic");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
-                float TimeAudioclip = audioSource.time;
-                float audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
+                 TimeAudioclip = audioSource.time;
+                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
+             
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXAutoShoot;
@@ -257,18 +271,14 @@ public class CMP5K : CArmed
                         _anim.Play("mp5k-shoot-automatic");
                     }
                     Debug.Log("Entra");
-
-                    //_anim.Play("mp5k-shoot-automatic");
                     Fire();
                     timeSinceLastShot = 0f;
-                    //.RecoilFire();
-                    //ammo_in_mag--;
-
                 }
                 if ((ammo_in_mag <= 0))
                 {
                     if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("mp5k-Idle"))
                     {
+                        audioSource.Stop();
                         _anim.Play("mp5k-Idle");
                     }
                 }
@@ -276,12 +286,19 @@ public class CMP5K : CArmed
 
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
 
                 break;
 
             case (int)GunState.Desequip:
+                AnimationNameFunction("mp5k-Desequip");
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXDesequip;
+                    audioSource.Play();
+                }
                 TimeFinish = currentState.normalizedTime;
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("mp5k-Desequip"))
                 {
@@ -289,12 +306,19 @@ public class CMP5K : CArmed
                 }
                 if (TimeFinish  > .9f)
                 {
+                    audioSource.Stop();
                     gameObject.SetActive(false);
                 }
                 break;
 
             case (int)GunState.Reload:
                 isReload = false;
+                AnimationNameFunction("mp5k-Reload");
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXReload;
+                    audioSource.Play();
+                }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("mp5k-Reload"))
                 {
                     _anim.Play("mp5k-Reload");
@@ -322,13 +346,20 @@ public class CMP5K : CArmed
 
                 if (TimeFinish > .9f)
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
 
                 break;
 
             case (int)GunState.ReloadNotAmmo:
+                AnimationNameFunction("mp5k-Realod-NotAmmo");
                 isReload = false;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXReloadNOTAMMO;
+                    audioSource.Play();
+                }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("mp5k-Realod-NotAmmo"))
                 {
                     _anim.Play("mp5k-Realod-NotAmmo");
@@ -350,12 +381,19 @@ public class CMP5K : CArmed
                 }
                 if (TimeFinish > .9f)
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
 
                 break;
 
             case (int)GunState.Setup:
+                AnimationNameFunction("mp5k-Equip");
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXSetup;
+                    audioSource.Play();
+                }
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("mp5k-Equip"))
@@ -365,12 +403,19 @@ public class CMP5K : CArmed
                 }
                 if (TimeFinish > .9f)
                 {
+                    audioSource.Stop();
                     setState((int)GunState.Idle);
                 }
 
                 break;
 
             case (int)GunState.Drop:
+                AnimationNameFunction("mp5k-Drop");
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = SFXDrop;
+                    audioSource.Play();
+                }
                 float timeToDeath = currentState.normalizedTime;
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("mp5k-Drop"))
                 {
@@ -378,6 +423,7 @@ public class CMP5K : CArmed
                 }
                 if (timeToDeath > .9f)
                 {
+                    audioSource.Stop();
                     Destroy(gameObject);
                 }
                 break;
@@ -513,38 +559,20 @@ public class CMP5K : CArmed
     
 
 
-    IEnumerator AutoShootCoroutine()
-    {
-        while (Input.GetButton("Fire1") && ammo_in_mag > 0)
-        {
-            // Disparar
-            ammo_in_mag--;
-            timeSinceLastShot = 0f;
-            _canShoot = false;
-            yield return new WaitForSeconds(fire_rate);
-        }
-        _canShoot = true;
+   
 
-    }
+    //IEnumerator ShootGun()
+    //{
+    //    // Shoot();
+    //    //RayCastForEne();
+    //    //recoil_Script.RecoilFire();
+    //   // ammo_in_mag--;
+    //    timeSinceLastShot = 0f;
+    //    _canShoot = false;
+    //    yield return new WaitForSeconds(fireRate);
+    //    _canShoot = true;
 
-    IEnumerator WaitSecond()
-    {
-        yield return new WaitForSeconds(fire_rate);
-
-    }
-
-    IEnumerator ShootGun()
-    {
-        // Shoot();
-        RayCastForEne();
-         recoil_Script.RecoilFire();
-        ammo_in_mag--;
-        timeSinceLastShot = 0f;
-        _canShoot = false;
-        yield return new WaitForSeconds(fireRate);
-        _canShoot = true;
-
-    }
+    //}
 
     public void Fire()
     {
@@ -682,6 +710,10 @@ public class CMP5K : CArmed
            
 
         }
+    }
+    public override void AnimationNameFunction(string nameAnimation)
+    {
+        base.AnimationNameFunction(nameAnimation);
     }
 }
  
