@@ -53,7 +53,7 @@ public class CPPK : CArmed
     private GameObject bulletHolePreb;  
     //private weapon_Input _input;
     private Animator _anim;
-
+    private CMuzzleController VFXMP5K;
     public float range = 100f;
     [Header("DEBUG!!!!----------")]
     public List<string> ListAnimationDebug;
@@ -89,10 +89,14 @@ public class CPPK : CArmed
         setState((int)GunState.Summon);
         LoadInfo();
         bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
+
+        VFXMP5K = GetComponent<CMuzzleController>();
+        VFXMP5K.SetRates(0);
+        VFXMP5K.PlayeVisualEffect();
         //_canShoot = true;
         //_CanReload = false;
-       
-        
+
+
     }
 
     private Transform SpawmBulletTransform;
@@ -158,10 +162,12 @@ public class CPPK : CArmed
                 }
                 if (Input.GetKey(KeyCode.Mouse0) && (timeSinceLastShot >= fireRate) && ammo_in_mag >= 2)
                 {
+                    VFXMP5K.SetRates(1);
                     setState((int)GunState.Shoot);
                 }
                 else if (Input.GetKey(KeyCode.Mouse0) && (timeSinceLastShot >= fireRate) && ammo_in_mag <= 1)
                 {
+                    VFXMP5K.SetRates(1);
                     setState((int)GunState.ShootNotAmmo);
                 }
                 if(ammo_in_mag < 0)
@@ -177,8 +183,10 @@ public class CPPK : CArmed
                 break;
 
             case (int)GunState.Shoot:
-
+               // VFXMP5K.PlayeVisualEffect();
+             
                 AnimationNameFunction("ppk-Shoot-Normal");
+        
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ppk-Shoot-Normal"))
                 {
                     _anim.Play("ppk-Shoot-Normal");
@@ -187,8 +195,9 @@ public class CPPK : CArmed
                     timeSinceLastShot = 0f;
                 }
 
-                if (TimeFinish > .98f)
+                if (TimeFinish > .99f)
                 {
+                    VFXMP5K.SetRates(0);
                     setState((int)GunState.Idle);
                 }
                 break;
@@ -196,20 +205,23 @@ public class CPPK : CArmed
             case (int)GunState.ShootNotAmmo:
                 AnimationNameFunction("PPK-Fire-NotAmmo");
                 Debug.LogWarning("timeSinceLastShot es" + timeSinceLastShot);
+              
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
-
+               
 
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("PPK-Fire-NotAmmo"))
                 {
                     _anim.Play("PPK-Fire-NotAmmo");
                     //ammo_in_mag--;
+
                     Fire();
                     timeSinceLastShot = 0f;
                 }
 
                 if (TimeFinish > .98f)
                 {
+                    VFXMP5K.SetRates(0);
                     setState((int)GunState.IdleNotAmmo);
                 }
 
@@ -282,7 +294,7 @@ public class CPPK : CArmed
                 }
                else if (TimeFinish > .98f)
                 {
-                    setState((int)GunState.IdleNotAmmo);
+                    setState((int)GunState.Idle);
                 }
                 break;
 

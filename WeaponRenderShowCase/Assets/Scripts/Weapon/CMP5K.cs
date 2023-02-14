@@ -27,6 +27,8 @@ public class CMP5K : CArmed
     public Vector3 normalLocapPoition;
     public Vector3 aimIngLocalPosition;
 
+   private CMuzzleController VFXMP5K;  
+
     public float aimSmoothing = 10f;
 
     [Header("Mouse setting")]
@@ -111,7 +113,11 @@ public class CMP5K : CArmed
         setState((int)GunState.Setup);
         audioSource = GetComponent<AudioSource>();
         bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
-       
+
+        VFXMP5K = GetComponent<CMuzzleController>();
+        VFXMP5K.SetRates(0);
+        VFXMP5K.PlayeVisualEffect();
+
         isAuto = true;
         //CManagerSFX.Inst.AddAudioSource(audioSource);
         //_bulletTrailPreb = Instantiate(Resources.Load("SpectreTrail", typeof(GameObject))) as GameObject;
@@ -214,10 +220,12 @@ public class CMP5K : CArmed
                 TimeAudioclip = audioSource.time;
                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
                 AnimationNameFunction("mp5k-Shoot");
+                VFXMP5K.SetRates(1);
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXSingleFire;
                     audioSource.Play();
+                
                 }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("mp5k-Shoot"))
                 {
@@ -233,6 +241,8 @@ public class CMP5K : CArmed
                 if (TimeFinish > .9f)
                 {
                     audioSource.Stop();
+                    //VFXMP5K.StopVisualEffect();
+                    VFXMP5K.SetRates(0);
                     setState((int)GunState.Idle);
                 }
                 break;
@@ -243,11 +253,13 @@ public class CMP5K : CArmed
                 TimeFinish = currentState.normalizedTime;
                  TimeAudioclip = audioSource.time;
                  audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
-             
+                 
+                    
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXAutoShoot;
                     audioSource.Play();
+                   
                 }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("mp5k-shoot-automatic"))
                 {
@@ -257,6 +269,8 @@ public class CMP5K : CArmed
                 }
                 if (TimeFinish > .9f)
                 {
+                    //VFXMP5K.StopVisualEffect();
+                    
                     _anim.Play("mp5k-shoot-automatic");
                 }
 
@@ -268,10 +282,12 @@ public class CMP5K : CArmed
                     }
                     if (TimeFinish > .8f)
                     {
+                        //VFXMP5K.StopVisualEffect();
                         _anim.Play("mp5k-shoot-automatic");
                     }
                     Debug.Log("Entra");
                     Fire();
+                    VFXMP5K.SetRates(ammo_in_mag);
                     timeSinceLastShot = 0f;
                 }
                 if ((ammo_in_mag <= 0))
@@ -287,6 +303,7 @@ public class CMP5K : CArmed
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
                     audioSource.Stop();
+                    VFXMP5K.SetRates(0);
                     setState((int)GunState.Idle);
                 }
 

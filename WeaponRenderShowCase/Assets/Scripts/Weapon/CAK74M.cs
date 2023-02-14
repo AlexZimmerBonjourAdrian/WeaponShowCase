@@ -55,7 +55,7 @@ public class CAK74M : CArmed
     float fireRate = 0.15f;
 
     public AudioSource audioSource;
-
+    private CMuzzleController VFXMP5K;
     [SerializeField] private AudioClip SFXSetup;
     [SerializeField] private AudioClip SFXAutoShoot;
     [SerializeField] private AudioClip SFXReloadNOTAMMO;
@@ -97,6 +97,9 @@ public class CAK74M : CArmed
         setState((int)GunState.Setup);
         audioSource = GetComponent<AudioSource>();
         bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
+        VFXMP5K = GetComponent<CMuzzleController>();
+        VFXMP5K.SetRates(0);
+        VFXMP5K.PlayeVisualEffect();
         isAuto = true;
     }
 
@@ -198,6 +201,7 @@ public class CAK74M : CArmed
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
+                VFXMP5K.SetRates(1);
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXSingleFire;
@@ -231,6 +235,7 @@ public class CAK74M : CArmed
                 {
                     audioSource.clip = SFXAutoShoot;
                     audioSource.Play();
+                    VFXMP5K.SetRates(ammo_in_mag);
                 }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("aK74M-Shoot-Auto"))
                 {
@@ -267,8 +272,9 @@ public class CAK74M : CArmed
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
 
-                        audioSource.Stop();
-                        setState((int)GunState.Idle);
+                    audioSource.Stop();
+                    VFXMP5K.SetRates(0);
+                    setState((int)GunState.Idle);
                 }
 
                

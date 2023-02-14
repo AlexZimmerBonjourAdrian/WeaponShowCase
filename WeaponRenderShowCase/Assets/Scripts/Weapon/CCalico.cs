@@ -23,7 +23,7 @@ public class CCalico : CArmed
     public Vector3 aimIngLocalPosition;
 
     public float aimSmoothing = 10f;
-
+    private CMuzzleController VFXMP5K;
     [Header("Mouse setting")]
     public float mouseSensitivity = 10;
     Vector2 _currentRotation;
@@ -97,6 +97,9 @@ public class CCalico : CArmed
         audioSource = GetComponent<AudioSource>();
         bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
         setState((int)GunState.Setup);
+        VFXMP5K = GetComponent<CMuzzleController>();
+        VFXMP5K.SetRates(0);
+        VFXMP5K.PlayeVisualEffect();
         isAuto = true;
     }
 
@@ -123,12 +126,14 @@ public class CCalico : CArmed
                 if ((Input.GetKeyDown(KeyCode.R) && extra_ammo > 0) && ammo_in_mag >= 1 && ammo_in_mag != mag_size /*&& ammo_in_mag < 1*/ /*&& isReload==true*/)
                 {
                     //iniciar la animacion de recarga que tiene las valas normales
+                    audioSource.Stop();
                     setState((int)GunState.Reload);
 
                 }
                 else if ((Input.GetKeyDown(KeyCode.R) && extra_ammo > 0) && ammo_in_mag <= 0 && ammo_in_mag != mag_size /*&& isReload == true*/)
                 {
                     //iniciar la animacion de recarga que no tiene balas
+                    audioSource.Stop();
                     setState((int)GunState.ReloadNotAmmo);
                 }
 
@@ -136,10 +141,12 @@ public class CCalico : CArmed
                 {
                     if (!isAuto)
                     {
+                        audioSource.Stop();
                         setState((int)GunState.Shoot);
                     }
                     if (isAuto)
                     {
+                        audioSource.Stop();
                         setState((int)GunState.AutoShoot);
                     }
                 }
@@ -152,6 +159,7 @@ public class CCalico : CArmed
             case (int)GunState.Shoot:
 
                 AnimationNameFunction("Calico-Shoot-Single");
+                VFXMP5K.SetRates(1);
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXSingleFire;
@@ -167,6 +175,8 @@ public class CCalico : CArmed
 
                 if (TimeFinish > .98f)
                 {
+                    audioSource.Stop();
+                    VFXMP5K.SetRates(0);
                     setState((int)GunState.Idle);
                 }
                 break;
@@ -197,6 +207,7 @@ public class CCalico : CArmed
 
                     //_anim.Play("mp5k-shoot-automatic");
                     Fire();
+                    VFXMP5K.SetRates(30);
                     timeSinceLastShot = 0f;
                     //.RecoilFire();
                     //ammo_in_mag--;
@@ -207,6 +218,7 @@ public class CCalico : CArmed
                     if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("Calico-Idle"))
                     {
                         audioSource.Stop();
+                    
                         _anim.Play("Calico-Idle");
                     }
                 }
@@ -215,6 +227,7 @@ public class CCalico : CArmed
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
                     audioSource.Stop();
+                    VFXMP5K.SetRates(0);
                     setState((int)GunState.Idle);
                 }
                 break;
@@ -258,6 +271,7 @@ public class CCalico : CArmed
                 if (TimeFinish > .98f)
                 {
                     audioSource.Stop();
+
                     setState((int)GunState.Idle);
                 }
 

@@ -158,6 +158,12 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "com.unity.vfx-toolbox": {
+      "version": "file:E:/VFXToolbox",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.visualeffectgraph": {
       "version": "12.1.10",
       "depth": 1,

@@ -78,6 +78,7 @@ public class CM4Shootgun : CArmed
     private float ShootDelay = 0.08f;
 
     public AudioSource audioSource;
+    private CMuzzleController VFXMP5K;
 
     [SerializeField] private AudioClip SFXSetup;
     [SerializeField] private AudioClip SFXAutoShoot;
@@ -105,6 +106,9 @@ public class CM4Shootgun : CArmed
         setState((int)GunState.Setup);
         audioSource = GetComponent<AudioSource>();
         bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
+        VFXMP5K = GetComponent<CMuzzleController>();
+        VFXMP5K.SetRates(0);
+        VFXMP5K.PlayeVisualEffect();
         isAuto = true;
     }
 
@@ -146,7 +150,7 @@ public class CM4Shootgun : CArmed
                     setState((int)GunState.ReloadNotAmmo);
                 }
 
-                if (Input.GetKey(KeyCode.Mouse0) && (timeSinceLastShot >= fireRate))
+                if (Input.GetKey(KeyCode.Mouse0) && (timeSinceLastShot >= fireRate) && ammo_in_mag > 0 )
                 {
                     if (!isAuto)
                     {
@@ -172,6 +176,7 @@ public class CM4Shootgun : CArmed
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
+                VFXMP5K.SetRates(1);
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXSingleFire;
@@ -202,11 +207,12 @@ public class CM4Shootgun : CArmed
                 Debug.Log("Entra en AutoLoad");
                 //float TimeAudioclip = audioSource.time;
                 //float audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
-
-                if (!audioSource.isPlaying)
+                VFXMP5K.SetRates(ammo_in_mag);
+                if (!audioSource.isPlaying && ammo_in_mag > 0)
                 {
                     audioSource.clip = SFXAutoShoot;
                     audioSource.Play();
+                   
                 }
 
                 if ((ammo_in_mag > 0) && (timeSinceLastShot >= fireRate))
@@ -228,18 +234,21 @@ public class CM4Shootgun : CArmed
                     //ammo_in_mag--;
 
                 }
-                if ((ammo_in_mag <= 0))
-                {
-                    if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("m4Shootgun-Idle"))
-                    {
-                        _anim.Play("m4Shootgun-Idle");
-                    }
-                }
+                //if ((ammo_in_mag >= 0))
+                //{
+                //    if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("m4Shootgun-Idle"))
+                //    {
+                //        _anim.Play("m4Shootgun-Idle");
+                //    }
+                //}
+              
+
                 timeSinceLastShot += Time.deltaTime;
 
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
                     audioSource.Stop();
+                    VFXMP5K.SetRates(0);
                     setState((int)GunState.Idle);
                 }
                 break;

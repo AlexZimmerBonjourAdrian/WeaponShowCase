@@ -59,6 +59,8 @@ public class CM4A1 : CArmed
     float fireRate = 0.08f;
     public bool isAuto;
 
+    private CMuzzleController VFXMP5K;
+
     private Transform SpawmBulletTransform;
     [SerializeField]
     private GameObject bulletTrailPreb;
@@ -114,6 +116,11 @@ public class CM4A1 : CArmed
         bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
         LoadInfo();
         isAuto = true;
+        audioSource = GetComponent<AudioSource>();
+
+        VFXMP5K = GetComponent<CMuzzleController>();
+        VFXMP5K.SetRates(0);
+        VFXMP5K.PlayeVisualEffect();
         IsLeft = false;
 
 
@@ -288,6 +295,8 @@ public class CM4A1 : CArmed
 
             case (int)GunState.Shoot_Right:
                 AnimationNameFunction("m4a1-Fire");
+                VFXMP5K.SetRates(1);
+
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXSingleFireRight;
@@ -307,6 +316,7 @@ public class CM4A1 : CArmed
                 if (TimeFinish > .45f)
                 {
                     audioSource.Stop();
+                    VFXMP5K.SetRates(0);
                     setState((int)GunState.Idle_Right);
                 }
                 break;
@@ -318,6 +328,10 @@ public class CM4A1 : CArmed
                 Debug.Log("Estado actual" + state);
                 TimeFinish = currentState.normalizedTime;
                 AnimationNameFunction("m4a1-Fire");
+         
+
+                VFXMP5K.SetRates(1);
+
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXSingleFireLeft;
@@ -334,6 +348,7 @@ public class CM4A1 : CArmed
                 if (TimeFinish > .45f)
                 {
                     audioSource.Stop();
+                    VFXMP5K.SetRates(0);
                     setState((int)GunState.Idle_Left);
                 }
                 break;
@@ -345,10 +360,11 @@ public class CM4A1 : CArmed
 
 
                 AnimationNameFunction("m4a1-Shoot-Auto");
-                if (!audioSource.isPlaying)
+                if (!audioSource.isPlaying && (ammo_in_mag > 0))
                 {
                     audioSource.clip =SFXAutoShootRight;
                     audioSource.Play();
+                    
                 }
                 if ((ammo_in_mag > 0) && (timeSinceLastShot >= fireRate))
                 {
@@ -363,6 +379,7 @@ public class CM4A1 : CArmed
                     Debug.Log("Entra");
                     //_anim.Play("mp5k-shoot-automatic");
                     Fire();
+                    VFXMP5K.SetRates(ammo_in_mag);
                     timeSinceLastShot = 0f;
                     //.RecoilFire();
                     //ammo_in_mag--;
@@ -379,6 +396,7 @@ public class CM4A1 : CArmed
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
                     audioSource.Stop();
+                    VFXMP5K.SetRates(0);
                     setState((int)GunState.Idle_Right);
                 }
                 break;
@@ -388,10 +406,11 @@ public class CM4A1 : CArmed
 
                 AnimationNameFunction("m4a1-Shoot-Auto");
 
-                if (!audioSource.isPlaying)
+                if (!audioSource.isPlaying && (ammo_in_mag > 0))
                 {
                     audioSource.clip = SFXAutoShootLeft;
                     audioSource.Play();
+                    
                 }
                 Debug.LogWarning("timeSinceLastShot es" + timeSinceLastShot);
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
@@ -399,7 +418,7 @@ public class CM4A1 : CArmed
 
 
 
-                if ((ammo_in_mag > 0) && (timeSinceLastShot >= fireRate))
+                if ((ammo_in_mag > 0) && (timeSinceLastShot >= fireRate) )
                 {
                     if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("m4a1-Shoot-Auto"))
                     {
@@ -412,6 +431,7 @@ public class CM4A1 : CArmed
                     Debug.Log("Entra");
                     //_anim.Play("mp5k-shoot-automatic");
                     Fire();
+                    VFXMP5K.SetRates(ammo_in_mag);
                     timeSinceLastShot = 0f;
                     //.RecoilFire();
                     //ammo_in_mag--;
@@ -428,6 +448,7 @@ public class CM4A1 : CArmed
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
                     audioSource.Stop();
+                    VFXMP5K.SetRates(0);
                     setState((int)GunState.Idle_Left);
                 }
                 break;
