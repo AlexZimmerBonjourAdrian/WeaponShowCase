@@ -43,7 +43,7 @@ public class CAK74M : CArmed
     [SerializeField] private Transform _Shootposition; 
     [SerializeField] private float range = 30;
     //[SerializeField] private CRecoil recoil_Script;
-    private Animator _anim;
+    public Animator _anim;
     //Weapon Recoil
     [Header("DEBUG!!!!----------")]
     public List<string> ListAnimationDebug;
@@ -300,6 +300,7 @@ public class CAK74M : CArmed
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ak74m-Dsequip"))
                 {
                     _anim.Play("ak74m-Dsequip");
+                    //IsFinishAnimation("ak74m-Dsequip");
                 }
                
                 break;
@@ -723,4 +724,9 @@ public class CAK74M : CArmed
     {
         base.AnimationNameFunction(nameAnimation);
     }
+
+    //public override bool IsFinishAnimation(string Anim)
+    //{
+    //    return base.IsFinishAnimation(Anim);
+    //}
 }

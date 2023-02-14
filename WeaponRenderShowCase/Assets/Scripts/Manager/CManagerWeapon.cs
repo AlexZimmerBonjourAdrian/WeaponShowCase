@@ -111,12 +111,12 @@ namespace DL
                 if (weapon.GetSiblingIndex() == selectedWeapon)
                 {
                     Debug.LogWarning(i);
-                     i++;
+                    
                     GetCurrentWeapon().GetComponent<CArmed>().Equip();
                     weapon.gameObject.SetActive(true);
                     //if (CurrentWeapon.GetComponent<CArmed>().IsFinishAnimation(isAnim))
                     GetCurrentWeapon().GetComponent<CArmed>().Equip();
-
+                    weapon.SetSiblingIndex(i);
 
                 }
                 else
@@ -125,12 +125,14 @@ namespace DL
                     GetCurrentWeapon().GetComponent<CArmed>().Desequip();
                     ////if (CurrentWeapon.GetComponent<CArmed>().IsFinishAnimation(isAnim))
                     weapon.gameObject.SetActive(false);
-                  
-                         //SelectedWeapon();
+                    //i--;
+                    ////weapon.SetSiblingIndex(i);
+                    //weapon.SetSiblingIndex(i);
+                    //SelectedWeapon();
 
                 }
                 //i++;
-
+                i++;
 
             }
         }
@@ -146,15 +148,23 @@ namespace DL
 
                     selectedWeapon = 0;
                 else
+                    //GetCurrentWeapon().GetComponent<CArmed>().Desequip();
+                   //if (GetCurrentWeapon().GetComponent<CArmed>().IsFinishAnimation(" "))
+                   // { 
                     selectedWeapon++;
-            }
+                    //}
+                }
             if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                if (selectedWeapon <= 0)
-                    selectedWeapon = transform.childCount - 1;
-                else
-                    selectedWeapon--;
-            }
+                    if (selectedWeapon <= 0)
+                        selectedWeapon = transform.childCount - 1;
+                    else
+                            //GetCurrentWeapon().GetComponent<CArmed>().Desequip()
+                    //if (GetCurrentWeapon().GetComponent<CArmed>().IsFinishAnimation(" "))
+                    //{
+                        selectedWeapon--;
+                    //}
+                }
 
                 if (previousSelectedWeapon != selectedWeapon)
                 {

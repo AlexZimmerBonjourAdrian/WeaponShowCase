@@ -70,7 +70,7 @@ public class CArmed : MonoBehaviour
     //[SerializeField] protected Vector3 BulletSpreadVariance = new Vector3(0.1f, 0.1f, 0.1f);
     [Header("Distance Max weapon")]
     //[SerializeField] protected float distance = 100f;
-
+    //public Animator _anim;
     [Header("Effects")]
     [SerializeField] protected Transform muzzle;
     [SerializeField] protected float muzzleVelocity = 35;
@@ -391,6 +391,17 @@ public class CArmed : MonoBehaviour
     {
         NameAnimation.text = nameAnimation;
     }
+
+    //public virtual bool IsFinishAnimation(string Anim)
+    //{
+    //    AnimatorStateInfo currentState = _anim.GetCurrentAnimatorStateInfo(0);
+    //    float TimeFinish = currentState.normalizedTime;
+    //    if (currentState.IsName(Anim))
+    //    {
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
     //public void BulletHole()
     //{
