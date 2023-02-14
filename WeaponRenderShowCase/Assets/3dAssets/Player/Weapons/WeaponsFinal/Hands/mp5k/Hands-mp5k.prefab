@@ -201,17 +201,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d04eafcea1997114e81fd53e421880c9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.216269
+      value: 30.423162
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d04eafcea1997114e81fd53e421880c9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.546
+      value: 5.79
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d04eafcea1997114e81fd53e421880c9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 38.269
+      value: -24.94
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d04eafcea1997114e81fd53e421880c9,
         type: 3}
@@ -728,6 +728,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 179.8241
       objectReference: {fileID: 0}
+    - target: {fileID: -3847475328474042964, guid: d04eafcea1997114e81fd53e421880c9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0dbb1ba2652d60449ba86ec4d29ea118, type: 2}
     - target: {fileID: -3821057035998799032, guid: d04eafcea1997114e81fd53e421880c9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1361,6 +1366,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 41.84406
       objectReference: {fileID: 0}
+    - target: {fileID: 1346000757538979038, guid: d04eafcea1997114e81fd53e421880c9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a1d51a661dd4edb4b9d41015a37e36ef, type: 2}
     - target: {fileID: 1350163319503878299, guid: d04eafcea1997114e81fd53e421880c9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2213,7 +2223,7 @@ MonoBehaviour:
   extra_ammo: 30
   mag_size: 0
   damage: 10
-  fire_rate: 1
+  fire_rate: 0.3
   isShooting: 0
   isReload: 0
   isCrossing: 0
@@ -2261,7 +2271,7 @@ MonoBehaviour:
   ListAnimationDebug: []
   ListAniamtionArrayDebug: []
   ValueIndex: 0
-  bulletTrailPreb: {fileID: 0}
+  bulletTrailPreb: {fileID: 8646423512370871771}
   BulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
   ShootingSystem: {fileID: 0}
   ImpactParticleSystem: {fileID: 0}
@@ -2307,7 +2317,7 @@ PrefabInstance:
     - target: {fileID: 3928528860053484037, guid: 43559d27d223bf340b413fde1315c256,
         type: 3}
       propertyPath: m_Name
-      value: Hot Trail
+      value: HotTrail
       objectReference: {fileID: 0}
     - target: {fileID: 4706939876495061202, guid: 43559d27d223bf340b413fde1315c256,
         type: 3}
