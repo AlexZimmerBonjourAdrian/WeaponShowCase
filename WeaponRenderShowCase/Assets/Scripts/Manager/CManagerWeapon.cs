@@ -29,7 +29,7 @@ namespace DL
         private GameObject CurrentWeapon;
         [SerializeField]private Transform _trasnformWeapon;
         private static CManagerWeapon Inst;
-     
+        private GameObject PreviusWeapon;
 
         private void Awake()
         {
@@ -60,6 +60,41 @@ namespace DL
             UpdateAmmo();
         }
         
+        private void AutoAsignedWeaponAfterDrop()
+        {
+            if(CurrentWeapon == null)
+            {
+                if (selectedWeapon >= transform.childCount - 1)
+                {
+                    selectedWeapon = 0;
+                }
+                else
+                {
+                    selectedWeapon++;
+                }
+                //GetCurrentWeapon().GetComponent<CArmed>().Desequip();
+                //if (GetCurrentWeapon().GetComponent<CArmed>().IsFinishAnimation(" "))
+                // { 
+
+                //}
+            }
+           
+                if (selectedWeapon <= 0)
+                {
+                    selectedWeapon = transform.childCount - 1;
+                }
+                else
+                    //GetCurrentWeapon().GetComponent<CArmed>().Desequip()
+                    //if (GetCurrentWeapon().GetComponent<CArmed>().IsFinishAnimation(" "))
+                    //{
+
+                    selectedWeapon--;
+
+
+                //}
+            
+        }
+
         public void AddWeapon(GameObject Weapon)
         {
             if(weapons.Count <= 5)
@@ -110,71 +145,89 @@ namespace DL
                //
                 if (weapon.GetSiblingIndex() == selectedWeapon)
                 {
+                 if(GetCurrentWeapon() != null)
+                    { 
                     Debug.LogWarning(i);
-                    
                     GetCurrentWeapon().GetComponent<CArmed>().Equip();
                     weapon.gameObject.SetActive(true);
-                    //if (CurrentWeapon.GetComponent<CArmed>().IsFinishAnimation(isAnim))
-                    GetCurrentWeapon().GetComponent<CArmed>().Equip();
-                    weapon.SetSiblingIndex(i);
-
+                    CurrentWeapon = weapon.gameObject;
+                    }
+                  else
+                    {
+                        CurrentWeapon = PreviusWeapon;
+                        SelectedWeapon();
+                    }
                 }
                 else
                 {
                     Debug.LogWarning(i);
-                    GetCurrentWeapon().GetComponent<CArmed>().Desequip();
-                    ////if (CurrentWeapon.GetComponent<CArmed>().IsFinishAnimation(isAnim))
                     weapon.gameObject.SetActive(false);
-                    //i--;
-                    ////weapon.SetSiblingIndex(i);
-                    //weapon.SetSiblingIndex(i);
-                    //SelectedWeapon();
-
                 }
+              
+                //weapon.SetSiblingIndex(selectedWeapon);
                 //i++;
-                i++;
+                //i++;
 
             }
         }
         private void EquipWeapon()
         {
             int previousSelectedWeapon = selectedWeapon;
-            
-            if(CurrentWeapon != null)
+            PreviusWeapon = CurrentWeapon;
+            if (CurrentWeapon != null)
             {
                 if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                if (selectedWeapon >= transform.childCount - 1)
+                    if (selectedWeapon >= transform.childCount - 1)
+                    {
+                        
+                        selectedWeapon = 0;
+                      
 
-                    selectedWeapon = 0;
-                else
-                    //GetCurrentWeapon().GetComponent<CArmed>().Desequip();
-                   //if (GetCurrentWeapon().GetComponent<CArmed>().IsFinishAnimation(" "))
-                   // { 
-                    selectedWeapon++;
+                    }
+                    else
+                    {
+                        
+                        selectedWeapon++;
+              
+
+                    }
+                        //GetCurrentWeapon().GetComponent<CArmed>().Desequip();
+                        //if (GetCurrentWeapon().GetComponent<CArmed>().IsFinishAnimation(" "))
+                        // { 
+                
                     //}
                 }
-            if (Input.GetAxis("Mouse ScrollWheel") < 0f)
-            {
+                if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+                {
                     if (selectedWeapon <= 0)
+                    {
+                       
                         selectedWeapon = transform.childCount - 1;
+                       
+
+                    }
                     else
-                            //GetCurrentWeapon().GetComponent<CArmed>().Desequip()
-                    //if (GetCurrentWeapon().GetComponent<CArmed>().IsFinishAnimation(" "))
-                    //{
-                        selectedWeapon--;
+                        //GetCurrentWeapon().GetComponent<CArmed>().Desequip()
+                        //if (GetCurrentWeapon().GetComponent<CArmed>().IsFinishAnimation(" "))
+                        //{
+                    
+                    selectedWeapon--;
+                    
+
                     //}
                 }
 
                 if (previousSelectedWeapon != selectedWeapon)
                 {
+                    
                     SelectedWeapon();
                 }
 
             }
             else
             {
-                SelectedWeapon();
+               
                 selectedWeapon = 0;
             }
         }
@@ -200,22 +253,36 @@ namespace DL
             {
                 bool isAnim = false;
                 //Todo:Dropea el arma, probar
+
+                //CurrentWeapon = PreviusWeapon;
+                //weapons.Remove(CurrentWeapon);
+                //weapons[0] = CurrentWeapon;
+
                 CurrentWeapon.GetComponent<CArmed>().Drop();
-                if (CurrentWeapon.GetComponent<CArmed>().IsFinishAnimation(isAnim))
-                {
-                    weapons.Remove(CurrentWeapon);
-                    //Destroy(CurrentWeapon);
-                    SelectedWeapon();
-                }
+
+                
+
+                EquipWeapon();
+                SelectedWeapon();
+                //CurrentWeapon = PreviusWeapon;
+                //selectedWeapon = transform.childCount - 1;
+
+
+                //EquipWeapon();
+                //SelectedWeapon();
+
+
+
+
             }
         }
         public void NotCurrentWeapon()
         {
             //Todo: Agregar requisitos y alguna interfaz para indicar que hace y cuanta energia me queda
-            if(Input.GetKeyDown(KeyCode.Mouse0) && weapons.Count <= 0)
-            {
-                AutoSpawn();  
-            }
+            //if(Input.GetKeyDown(KeyCode.Mouse0) && weapons.Count <= 0)
+            //{
+            //    AutoSpawn();  
+            //}
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {

@@ -85,7 +85,7 @@ public class CAK74M : CArmed
     // Start is called before the first frame update
     void Start()
     {
-        transform.localPosition = new Vector3(0.0052f, -0.0193f, 0.0039f);
+        transform.localPosition = new Vector3(0.0048f, -0.0193f, -0.0020f);
         LoadInfo();
         _anim = GetComponent<Animator>();
         recoil_Script = GameObject.Find("CameraRecoil").GetComponent<CRecoil>();
@@ -295,15 +295,15 @@ public class CAK74M : CArmed
 
                 break;
 
-            case (int)GunState.Desequip:
-                AnimationNameFunction("ak74m-Dsequip");
-                if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ak74m-Dsequip"))
-                {
-                    _anim.Play("ak74m-Dsequip");
-                    //IsFinishAnimation("ak74m-Dsequip");
-                }
+            //case (int)GunState.Desequip:
+            //    AnimationNameFunction("ak74m-Dsequip");
+            //    if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ak74m-Dsequip"))
+            //    {
+            //        _anim.Play("ak74m-Dsequip");
+            //        //IsFinishAnimation("ak74m-Dsequip");
+            //    }
                
-                break;
+            //    break;
 
             case (int)GunState.Reload:
                 AnimationNameFunction("aK74M-Reload-Normal");
@@ -428,6 +428,7 @@ public class CAK74M : CArmed
                 }
                 if (timeToDeath > .9f)
                 {
+                    IsFinishAnimation(true);
                     audioSource.Stop();
                     Destroy(gameObject);
                 }

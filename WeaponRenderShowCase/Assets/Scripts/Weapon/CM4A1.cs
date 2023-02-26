@@ -846,17 +846,20 @@ public class CM4A1 : CArmed
     public override void Equip()
     {
         base.Equip();
+        audioSource.Stop();
         setState((int)GunState.Setup_Left);
     }
     public override void Desequip()
     {
         base.Desequip();
+        audioSource.Stop();
         setState((int)GunState.Desequip_Left);
     }
 
     public override void Drop()
     {
         base.Drop();
+        audioSource.Stop();
         setState((int)GunState.Drop);
 
     }

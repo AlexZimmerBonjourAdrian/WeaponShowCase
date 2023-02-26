@@ -393,11 +393,7 @@ public class CM4Shootgun : CArmed
                 TimeAudioclip = audioSource.time;
                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
                 float timeToDeath = currentState.normalizedTime;
-                //if (!audioSource.isPlaying)
-                //{
-                //    audioSource.clip = SFXDrop;
-                //    audioSource.Play();
-                //}
+                
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("m4Shootgun-Drop"))
                 {
                     _anim.Play("m4Shootgun-Drop");
@@ -510,6 +506,7 @@ public class CM4Shootgun : CArmed
     public override void Equip()
     {
         base.Equip();
+        audioSource.Stop();
         setState((int)GunState.Setup);
     }
     public override void Desequip()
@@ -520,6 +517,7 @@ public class CM4Shootgun : CArmed
 
     public override void Drop()
     {
+        audioSource.Stop();
         setState((int)GunState.Drop);
     }
 

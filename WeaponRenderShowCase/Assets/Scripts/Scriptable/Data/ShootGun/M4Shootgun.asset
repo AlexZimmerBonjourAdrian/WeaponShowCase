@@ -19,10 +19,10 @@ MonoBehaviour:
   reload_speed: 0.4
   accuarcy: 0.8
   type_Weapon: Shootgun
-  recoilX: -90
-  recoilY: 90
+  recoilX: -40
+  recoilY: 40
   recoilZ: 0.42
-  returnSpeed: 10
+  returnSpeed: 5
   Snappiness: 3
   offset: 1
   multidisparo: 0

@@ -97,6 +97,8 @@ public class CMP5K : CArmed
     [SerializeField]
     protected LayerMask Mask;
 
+    [SerializeField]
+    private GameObject MuzzleFlash;
     // Start is called before the first frame update
    new void Start()
     {
@@ -164,7 +166,7 @@ public class CMP5K : CArmed
         AnimatorStateInfo currentState = _anim.GetCurrentAnimatorStateInfo(0);
         Debug.Log("Estado actual" + state);
         float TimeFinish = currentState.normalizedTime;
-
+      
 
         switch (state)
         {
@@ -221,6 +223,7 @@ public class CMP5K : CArmed
                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
                 AnimationNameFunction("mp5k-Shoot");
                 VFXMP5K.SetRates(1);
+                StartCoroutine(FireMuzzle());
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXSingleFire;
@@ -287,6 +290,7 @@ public class CMP5K : CArmed
                     }
                     Debug.Log("Entra");
                     Fire();
+                    StartCoroutine(FireMuzzle());
                     VFXMP5K.SetRates(ammo_in_mag);
                     timeSinceLastShot = 0f;
                 }
@@ -564,7 +568,7 @@ public class CMP5K : CArmed
     }
 
    
-
+    
     public override bool IsFinishAnimation(bool IsAnimation = false)
     {
         AnimatorStateInfo currentState = _anim.GetCurrentAnimatorStateInfo(0);
@@ -573,10 +577,10 @@ public class CMP5K : CArmed
         IsAnimation = TimeFinish >= 1;
         return base.IsFinishAnimation(IsAnimation);
     }
-    
 
 
-   
+
+
 
     //IEnumerator ShootGun()
     //{
@@ -590,6 +594,13 @@ public class CMP5K : CArmed
     //    _canShoot = true;
 
     //}
+
+    IEnumerator FireMuzzle()
+    {
+        MuzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        MuzzleFlash.SetActive(false);
+    }
 
     public void Fire()
     {

@@ -521,17 +521,20 @@ public class CCalico : CArmed
     public override void Equip()
     {
         base.Equip();
+        audioSource.Stop();
         setState((int)GunState.Setup);
     }
     public override void Desequip()
     {
         base.Desequip();
+        audioSource.Stop();
         setState((int)GunState.Desequip);
     }
 
     public override void Drop()
     {
         base.Drop();
+        audioSource.Stop();
         setState((int)GunState.Drop);
     }
     IEnumerator ShootGun()

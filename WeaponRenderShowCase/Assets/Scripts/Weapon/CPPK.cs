@@ -450,20 +450,33 @@ public class CPPK : CArmed
     {
         return GetIsCrossing();
     }
+    public override bool IsFinishAnimation(bool IsAnimation = false)
+    {
+        AnimatorStateInfo currentState = _anim.GetCurrentAnimatorStateInfo(0);
+        Debug.Log("Estado actual" + state);
+        float TimeFinish = currentState.normalizedTime;
+        IsAnimation = TimeFinish >= 1;
+        return base.IsFinishAnimation(IsAnimation);
 
+    }
+   
     public override void Equip()
     {
         base.Equip();
-        setState((int)GunState.Summon);
+        //audioSource.Stop();
+        //Destroy(this.gameObject);
     }
     public override void Desequip()
     {
         base.Desequip();
+        //audioSource.Stop();
         setState((int)GunState.Desequip);
     }
 
     public override void Drop()
     {
+        base.Drop();
+        //audioSource.Stop();
         setState((int)GunState.Drop);
     }
 

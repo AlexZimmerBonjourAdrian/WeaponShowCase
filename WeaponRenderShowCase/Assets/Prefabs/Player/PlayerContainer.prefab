@@ -42,10 +42,12 @@ GameObject:
   - component: {fileID: 4359349893998248582}
   - component: {fileID: 5895123123499556223}
   - component: {fileID: 3910324758883902474}
+  - component: {fileID: 8083593562996913172}
   - component: {fileID: 3922719193836515533}
   - component: {fileID: 2773877955679195772}
   - component: {fileID: 66826574}
   - component: {fileID: 66826580}
+  - component: {fileID: 8890859158389655330}
   m_Layer: 11
   m_Name: CameraRecoil
   m_TagString: Untagged
@@ -99,6 +101,20 @@ MonoBehaviour:
   RecoilRotation: {x: 4, y: 4, z: 4}
   RecoilRotationAiming: {x: 0.5, y: 0.5, z: 1.5}
   aiming: 0
+--- !u!114 &8083593562996913172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661855490891259682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd4e6e6b40e7f64a8689e7318532c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 4800000, guid: 693fb1b6d7dab3a42af66261ad559d5b, type: 3}
+  VHSClip: {fileID: 32900000, guid: 517ffc58d7a7b4641affea0348d52833, type: 3}
 --- !u!20 &3922719193836515533
 Camera:
   m_ObjectHideFlags: 0
@@ -195,6 +211,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fdaca7c4463709499070dd529af0c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!328 &8890859158389655330
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661855490891259682}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 517ffc58d7a7b4641affea0348d52833, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 3922719193836515533}
+  m_TargetTexture: {fileID: 0}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 0
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 0
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
 --- !u!1 &4294319267837977041
 GameObject:
   m_ObjectHideFlags: 0
