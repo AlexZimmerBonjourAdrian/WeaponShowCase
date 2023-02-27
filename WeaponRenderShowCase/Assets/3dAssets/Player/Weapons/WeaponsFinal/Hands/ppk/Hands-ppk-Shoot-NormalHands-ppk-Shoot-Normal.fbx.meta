@@ -2,10 +2,7 @@ fileFormatVersion: 2
 guid: f4a969aa491253d4dba168f6ab3824ae
 ModelImporter:
   serializedVersion: 21300
-  internalIDToNameTable:
-  - first:
-      74: -6445845162282124085
-    second: Hands-ppk-Shoot-Normal
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
