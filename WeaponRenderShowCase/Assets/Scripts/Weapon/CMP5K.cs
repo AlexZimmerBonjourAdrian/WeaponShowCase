@@ -114,7 +114,7 @@ public class CMP5K : CArmed
         NameAnimation = GameObject.Find("NameAnimation").GetComponent<Text>();
         setState((int)GunState.Setup);
         audioSource = GetComponent<AudioSource>();
-        bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
+        bulletHolePreb = CManageResources.Inst.getBulletHoleStone();
 
         VFXMP5K = GetComponent<CMuzzleController>();
         VFXMP5K.SetRates(0);
@@ -509,6 +509,8 @@ public class CMP5K : CArmed
     }
     public override void Drop()
     {
+        base.Drop();
+        //audioSource.Stop();
         setState((int)GunState.Drop);
     }
     public override void Add_ammo(DataPickUp PickUp)

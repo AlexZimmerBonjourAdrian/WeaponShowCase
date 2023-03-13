@@ -107,13 +107,12 @@ public class CM4A1 : CArmed
         _anim = GetComponent<Animator>();
         recoil_Script = GameObject.Find("CameraRecoil").GetComponent<CRecoil>();
         bulletTrailPreb = GameObject.Find("WeaponSpawnPoint");
-        bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
+        bulletHolePreb = CManageResources.Inst.getBulletHoleStone();
         BulletTrail = GameObject.Find("HotTrail").GetComponent<TrailRenderer>();
         playerCamera = GameObject.Find("PlayerCam").transform;
         NameAnimation = GameObject.Find("NameAnimation").GetComponent<Text>();
         marketUI = GameObject.Find("UICrosshair");
         setState((int)GunState.Setup_Left);
-        bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
         LoadInfo();
         isAuto = true;
         audioSource = GetComponent<AudioSource>();

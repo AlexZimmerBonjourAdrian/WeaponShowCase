@@ -21,6 +21,11 @@ public class CManageResources: MonoBehaviour
     public bool isSpectre = false;
     public TrailRenderer SpectreTrail;
     public TrailRenderer HotBulletTrail;
+    public GameObject bulletHoleWood;
+    public GameObject bulletHoleSteel;
+    public GameObject bulletHoleStone;
+    public GameObject bulletHoleConcrete;
+    public GameObject bulletHoleMeat;
     public GameObject BulletHole;
     private List<TrailRenderer> TrailRenderersList = new List<TrailRenderer>();
     [SerializeField]
@@ -93,39 +98,31 @@ public class CManageResources: MonoBehaviour
         return HotBulletTrail;
     }
 
-    public GameObject getBulletHoleWall()
+    public GameObject getBulletHoleSteel()
     {
-        return BulletHole;
+        return bulletHoleSteel;
     }
 
     public GameObject getBulletHoleBlood()
     {
-        return null;
+        return bulletHoleMeat;
     }
 
-    public GameObject getBulletHoleFloor()
+    public GameObject getBulletHoleWood()
     {
-        return null;
+        return bulletHoleWood;
     }
 
     public GameObject getBulletHoleMetalCrash()
     {
-        return null;
+        return bulletHoleMeat;
     }
 
-    public GameObject getBulletHolePlastic()
+    public GameObject getBulletHoleStone()
     {
-        return null;
+        return bulletHoleStone;
     }
 
-    public GameObject getBulletHoleCristal()
-    {
-        return null;
-    }
-    public GameObject getBulletHoleQuetblar()
-    {
-        return null;
-    }
     public GameObject getM4A1PicKUP()
     {
         return M4A1_PickUp;

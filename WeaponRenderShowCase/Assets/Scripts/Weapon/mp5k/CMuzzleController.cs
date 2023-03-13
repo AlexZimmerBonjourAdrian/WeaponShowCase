@@ -9,8 +9,8 @@ public class CMuzzleController : MonoBehaviour
 
     [SerializeField]
     private VisualEffect ShellEjection;
-    [SerializeField]
-    private VisualEffect MuzzleFlash;
+    //[SerializeField]
+    //private VisualEffect MuzzleFlash;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,7 @@ public class CMuzzleController : MonoBehaviour
     private void Update()
     {
         ShellEjection.SetFloat("RateBulletShell", BulletShellIntensity);
-        MuzzleFlash.SetFloat("RateMuzzle", MuzzleShellIntensity);
+        //MuzzleFlash.SetFloat("RateMuzzle", MuzzleShellIntensity);
     }
     // Update is called once per frame
 
@@ -28,18 +28,18 @@ public class CMuzzleController : MonoBehaviour
     {
 
         ShellEjection.Play();
-        MuzzleFlash.Play();
+        //MuzzleFlash.Play();
     }
     public void StopVisualEffect()
     {
         ShellEjection.Stop();
-        MuzzleFlash.Stop();
+        //MuzzleFlash.Stop();
     }
 
     public void SetRates(int rates)
     {
         BulletShellIntensity = rates;
-        MuzzleShellIntensity = rates;
+        //MuzzleShellIntensity = rates;
     }
 }
 

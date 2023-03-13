@@ -78,7 +78,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Binary: 0
-    - _Bleed: 0.46
+    - _Bleed: 0.55
     - _BumpScale: 1
     - _ColorBleed: 1
     - _Composite: 2
@@ -96,7 +96,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Overlay: 1
-    - _OverlayAlpha: 0.413
+    - _OverlayAlpha: 0.729
     - _Overscan: 0
     - _OverscanX: 0
     - _OverscanY: 0.255

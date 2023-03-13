@@ -88,7 +88,7 @@ public class CPPK : CArmed
         _anim.SetInteger("Ammo", ammo_in_mag);
         setState((int)GunState.Summon);
         LoadInfo();
-        bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
+        bulletHolePreb = CManageResources.Inst.getBulletHoleStone();
 
         VFXMP5K = GetComponent<CMuzzleController>();
         VFXMP5K.SetRates(0);

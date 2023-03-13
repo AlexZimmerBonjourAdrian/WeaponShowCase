@@ -96,7 +96,7 @@ public class CAK74M : CArmed
         playerCamera = GameObject.Find("PlayerCam").transform;
         setState((int)GunState.Setup);
         audioSource = GetComponent<AudioSource>();
-        bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
+        bulletHolePreb = CManageResources.Inst.getBulletHoleStone();
         VFXMP5K = GetComponent<CMuzzleController>();
         VFXMP5K.SetRates(0);
         VFXMP5K.PlayeVisualEffect();

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431cf66c429869145baa523e7c22355e, type: 3}
   m_Name: OptionsSetting
   m_EditorClassIdentifier: 
-  sensX: 0
-  sensY: 0
+  sensX: 200
+  sensY: 200

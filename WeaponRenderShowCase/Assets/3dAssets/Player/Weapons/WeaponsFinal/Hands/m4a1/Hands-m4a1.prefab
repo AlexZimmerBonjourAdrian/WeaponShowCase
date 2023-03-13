@@ -415,7 +415,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShellEjection: {fileID: 6822695907508075108}
-  MuzzleFlash: {fileID: 1752091530950147210}
 --- !u!114 &7520457976438434366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,6 +525,26 @@ MonoBehaviour:
   SFXIdleLeft: {fileID: 8300000, guid: 405fe4c6f1369ee4a8caf41d0a887f24, type: 3}
   SFXIdleRight: {fileID: 8300000, guid: 405fe4c6f1369ee4a8caf41d0a887f24, type: 3}
   audioSource: {fileID: 0}
+--- !u!114 &-6336808702392792422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2909355391793089674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4891557c9b182c440a72d27bd3ad7861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletHole: {fileID: 0}
+  bulletHoleWood: {fileID: 0}
+  bulletHoleSteel: {fileID: 0}
+  bulletHoleStone: {fileID: 0}
+  bulletHoleConcrete: {fileID: 0}
+  bulletHoleMeat: {fileID: 0}
+  distance: 10
+  Hole: {fileID: 0}
 --- !u!4 &5101527817997068798 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7092384382782134309, guid: 46e69faa0d8acfe4b85aeeeb2ca875e8,
@@ -716,12 +735,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaabd356c998d7649a105da88b4fa1a8, type: 3}
---- !u!2083052967 &1752091530950147210 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 2421548117057180764, guid: eaabd356c998d7649a105da88b4fa1a8,
-    type: 3}
-  m_PrefabInstance: {fileID: 4164629917943032022}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4913696547660565406
 PrefabInstance:
   m_ObjectHideFlags: 0

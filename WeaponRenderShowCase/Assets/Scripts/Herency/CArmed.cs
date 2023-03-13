@@ -315,7 +315,7 @@ public class CArmed : MonoBehaviour
 
     public virtual void Drop()
     {
-
+        Destroy(gameObject);
     }
 
    

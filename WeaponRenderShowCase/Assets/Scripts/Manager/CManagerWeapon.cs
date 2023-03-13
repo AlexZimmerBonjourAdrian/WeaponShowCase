@@ -251,7 +251,7 @@ namespace DL
         {
             if(Input.GetKeyDown(KeyCode.G))
             {
-                bool isAnim = false;
+             
                 //Todo:Dropea el arma, probar
 
                 //CurrentWeapon = PreviusWeapon;
@@ -259,11 +259,10 @@ namespace DL
                 //weapons[0] = CurrentWeapon;
 
                 CurrentWeapon.GetComponent<CArmed>().Drop();
-
-                
-
-                EquipWeapon();
+                selectedWeapon = 0;
                 SelectedWeapon();
+                EquipWeapon();
+                
                 //CurrentWeapon = PreviusWeapon;
                 //selectedWeapon = transform.childCount - 1;
 

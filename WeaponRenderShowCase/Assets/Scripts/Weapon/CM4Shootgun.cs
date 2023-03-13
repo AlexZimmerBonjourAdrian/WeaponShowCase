@@ -63,6 +63,8 @@ public class CM4Shootgun : CArmed
     [SerializeField]
     private GameObject bulletTrailPreb;
     private GameObject bulletHolePreb;
+
+
     [SerializeField]
     private Vector3 BulletSpreadVariance = new Vector3(0.1f, 0.1f, 0.1f);
     [SerializeField]
@@ -89,10 +91,15 @@ public class CM4Shootgun : CArmed
     [SerializeField] private AudioClip SFXDrop;
     [SerializeField] private AudioClip SFXIdle;
 
+    private CBulletHole bulletHole;
+
+    [SerializeField]
+    private GameObject MuzzleFlash;
+    
     // Start is called before the first frame update
     new void Start()
     {
-        transform.localPosition = new Vector3(0.0052f, -0.0193f, 0.0039f);
+        transform.localPosition = new Vector3(0.0052f, -0.0193f, -0.0039f);
         _canShoot = true;
         LoadInfo();
         _anim = GetComponent<Animator>();
@@ -105,19 +112,18 @@ public class CM4Shootgun : CArmed
         playerCamera = GameObject.Find("PlayerCam").transform;
         setState((int)GunState.Setup);
         audioSource = GetComponent<AudioSource>();
-        bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
+        bulletHolePreb = CManageResources.Inst.getBulletHoleStone();
         VFXMP5K = GetComponent<CMuzzleController>();
         VFXMP5K.SetRates(0);
         VFXMP5K.PlayeVisualEffect();
         isAuto = true;
+        bulletHole = GetComponent<CBulletHole>();
+        bulletHole.setCamera(playerCamera);
     }
 
     // Update is called once per frame
     void Update()
     {
-      
-       
-
         switch (state)
         {
             case (int)GunState.Idle:
@@ -176,7 +182,8 @@ public class CM4Shootgun : CArmed
                 TimeFinish = currentState.normalizedTime;
                 TimeAudioclip = audioSource.time;
                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
-                VFXMP5K.SetRates(1);
+               
+                
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXSingleFire;
@@ -187,6 +194,8 @@ public class CM4Shootgun : CArmed
                 {
                     _anim.Play("m4Shootgun-Shoot");
                     //ammo_in_mag--;
+                    StartCoroutine(FireMuzzle());
+                    
                     Fire();
                     timeSinceLastShot = 0f;
                 }
@@ -205,6 +214,7 @@ public class CM4Shootgun : CArmed
                 TimeAudioclip = audioSource.time;
                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
                 Debug.Log("Entra en AutoLoad");
+                //StartCoroutine(FireMuzzle());
                 //float TimeAudioclip = audioSource.time;
                 //float audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
                 VFXMP5K.SetRates(ammo_in_mag);
@@ -226,6 +236,8 @@ public class CM4Shootgun : CArmed
                         _anim.Play("m4Shootgun-Shoot-Auto");
                     }
                     Debug.Log("Entra");
+
+                    StartCoroutine(FireMuzzle());
 
                     //_anim.Play("mp5k-shoot-automatic");
                     Fire();
@@ -517,7 +529,8 @@ public class CM4Shootgun : CArmed
 
     public override void Drop()
     {
-        audioSource.Stop();
+        base.Drop();
+        //audioSource.Stop();
         setState((int)GunState.Drop);
     }
 
@@ -618,32 +631,79 @@ public class CM4Shootgun : CArmed
         RaycastHit hit_2;
         RaycastHit hit_3;
 
-        BulletHole();
-        BulletHole();
-        BulletHole();
-        BulletHole();
+
         //GameObject muzzleInstance = Instantiate(muzzle, spawnPoint.position, spawnPoint.localRotation);
         //muzzleInstance.transform.parent = spawnPoint;
 
         //Bulle that goes forward;
         //if(Physics.Raycast(_Shootposition.position, _Shootposition.forward, out hit,distance),)
         //BulletTrailFunction();
-        if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit_4, Mathf.Infinity, maskEnemy))
+        if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit_4, Mathf.Infinity))
         {
 
             //Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
 
             //Apply damage if you have a method that does it;
 
-            Debug.Log("Hit an Enemy");
-            marketUI.GetComponent<CHitmarket>().Hit();
-         
+
             //Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
             //rb.constraints = RigidbodyConstraints.None;
             //rb.AddForce(transform.parent.transform.forward * 500);
-            hit_4.collider.GetComponent<Mafioso>().TakeDamage(damage);
+            
             //Debug.Log(hit.collider.gameObject.GetComponent<CMafioso>().Hearth);
             //Debug.DrawRay(transform.position, transform.forward, Color.red);
+            BulletHole(playerCamera.forward);
+        }
+        //BulletTrailFunction();
+        if (Physics.Raycast(playerCamera.position, playerCamera.forward + new Vector3(-.2f, 0f, 0f), out hit_1, Mathf.Infinity))
+        {
+            //Instantiate(impact, hit.point, Quaternion.LookRotation(hit_1.normal));
+
+
+            Debug.Log("Hit an Enemy");
+
+           
+            BulletHole(playerCamera.forward + new Vector3(-.2f, 0f, 0f));
+
+            //Apply damage if you have a method that does it;
+
+        }
+        //BulletTrailFunction();
+        if (Physics.Raycast(playerCamera.position, playerCamera.forward + new Vector3(.0f, .1f, 0f), out hit_2, Mathf.Infinity))
+        {
+            //Instantiate(impact, hit.point, Quaternion.LookRotation(hit_2.normal));
+
+            //Apply damage if you have a method that does it;
+
+         
+            BulletHole(playerCamera.forward + new Vector3(.0f, .1f, 0f));
+
+
+        }
+        //BulletTrailFunction();
+        if (Physics.Raycast(playerCamera.position, playerCamera.forward + new Vector3(0f, -1f, 0f), out hit_3, Mathf.Infinity))
+        {
+            //Instantiate(impact, hit.point, Quaternion.LookRotation(hit_3.normal));
+      
+            BulletHole(playerCamera.forward + new Vector3(0f, -1f, 0f));
+
+        }
+
+        if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit_4, Mathf.Infinity, maskEnemy))
+        {
+
+            //Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+
+            //Apply damage if you have a method that does it;
+            marketUI.GetComponent<CHitmarket>().Hit();
+            //Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
+            //rb.constraints = RigidbodyConstraints.None;
+            //rb.AddForce(transform.parent.transform.forward * 500);
+            hit_1.collider.GetComponent<Mafioso>().TakeDamage(damage);
+            //Debug.Log(hit.collider.gameObject.GetComponent<CMafioso>().Hearth);
+            //Debug.DrawRay(transform.position, transform.forward, Color.red);
+            BulletHole(playerCamera.forward);
+
 
         }
         //BulletTrailFunction();
@@ -661,7 +721,7 @@ public class CM4Shootgun : CArmed
             hit_1.collider.GetComponent<Mafioso>().TakeDamage(damage);
             //Debug.Log(hit.collider.gameObject.GetComponent<CMafioso>().Hearth);
             //Debug.DrawRay(transform.position, transform.forward, Color.red);
-
+            BulletHole(playerCamera.forward + new Vector3(-.2f, 0f, 0f));
 
             //Apply damage if you have a method that does it;
 
@@ -681,7 +741,7 @@ public class CM4Shootgun : CArmed
             hit_2.collider.GetComponent<Mafioso>().TakeDamage(damage);
             //Debug.Log(hit.collider.gameObject.GetComponent<CMafioso>().Hearth);
             //Debug.DrawRay(transform.position, transform.forward, Color.red);
-
+            BulletHole(playerCamera.forward + new Vector3(.0f, .1f, 0f));
 
 
         }
@@ -697,29 +757,77 @@ public class CM4Shootgun : CArmed
             hit_3.collider.GetComponent<Mafioso>().TakeDamage(damage);
             //Debug.Log(hit.collider.gameObject.GetComponent<CMafioso>().Hearth);
             //Debug.DrawRay(transform.position, transform.forward, Color.red);
-
+            BulletHole(playerCamera.forward + new Vector3(0f, -1f, 0f));
 
         }
     }
-    public void BulletHole()
+    public void BulletHole(Vector3 offset)
     {
         //Ray rayOriginal = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 
         RaycastHit hitInfo;
 
-        if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hitInfo, Mathf.Infinity))
+        if (Physics.Raycast(playerCamera.position, offset, out hitInfo, Mathf.Infinity))
         {
-            if (hitInfo.collider.tag == "wall")
-            {
+            
                 //Inantiate bullet hole
-                Instantiate(bulletHolePreb, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                //Instantiate(bulletHolePreb, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
 
                 Vector3 direction = hitInfo.point - transform.position;
-                //transform.rotation = Quaternion.LookRotation(direction);
+           
+            //transform.rotation = Quaternion.LookRotation(direction);
+           
+
+           
+            
+            if(hitInfo.collider.GetComponent<CTypeObjectBulletHole>() != null)
+            { 
+                var bulletHole = hitInfo.collider.GetComponent<CTypeObjectBulletHole>().BulletHole;
+
+                switch ((int)bulletHole)
+                {
+                    case 0:
+                        bulletHolePreb = CManageResources.Inst.getBulletHoleWood();
+                        GameObject BH = Instantiate(bulletHolePreb, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                    break;
+
+                    case 1:
+                        bulletHolePreb = CManageResources.Inst.getBulletHoleSteel();
+                        BH = Instantiate(bulletHolePreb, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                    break;
+                    case 2:
+                        bulletHolePreb = CManageResources.Inst.getBulletHoleStone();
+                        BH = Instantiate(bulletHolePreb, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                    break;
+                    case 3:
+                        bulletHolePreb = bulletHolePreb = CManageResources.Inst.getBulletHoleStone();
+                        BH = Instantiate(bulletHolePreb, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                    break;
+                    case 4:
+                        bulletHolePreb = bulletHolePreb = CManageResources.Inst.getBulletHoleBlood();
+                        BH = Instantiate(bulletHolePreb, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                    break;
+
+                    default:
+                        BH = Instantiate(bulletHolePreb, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                    break;
+
+
+                }
             }
 
+
+
+
+
         }
+    }
+    IEnumerator FireMuzzle()
+    {
+        MuzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        MuzzleFlash.SetActive(false);
     }
     public override void AnimationNameFunction(string nameAnimation)
     {

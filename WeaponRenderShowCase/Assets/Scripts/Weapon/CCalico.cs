@@ -95,7 +95,7 @@ public class CCalico : CArmed
         BulletTrail = GameObject.Find("HotTrail").GetComponent<TrailRenderer>();
         playerCamera = GameObject.Find("PlayerCam").transform;
         audioSource = GetComponent<AudioSource>();
-        bulletHolePreb = CManageResources.Inst.getBulletHoleWall();
+        bulletHolePreb = CManageResources.Inst.getBulletHoleStone();
         setState((int)GunState.Setup);
         VFXMP5K = GetComponent<CMuzzleController>();
         VFXMP5K.SetRates(0);
