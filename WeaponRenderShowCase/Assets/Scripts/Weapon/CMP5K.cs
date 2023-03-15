@@ -262,6 +262,7 @@ public class CMP5K : CArmed
                 {
                     audioSource.clip = SFXAutoShoot;
                     audioSource.Play();
+
                    
                 }
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("mp5k-shoot-automatic"))
@@ -579,10 +580,6 @@ public class CMP5K : CArmed
         IsAnimation = TimeFinish >= 1;
         return base.IsFinishAnimation(IsAnimation);
     }
-
-
-
-
 
     //IEnumerator ShootGun()
     //{

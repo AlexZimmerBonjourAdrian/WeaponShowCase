@@ -74,6 +74,8 @@ public class CPPK : CArmed
     [SerializeField] private AudioClip SFXIdleNotAmmo;
 
     public AudioSource audioSource;
+    [SerializeField]
+    private GameObject MuzzleFlash;
     new void Start()
     {
        
@@ -186,7 +188,7 @@ public class CPPK : CArmed
                // VFXMP5K.PlayeVisualEffect();
              
                 AnimationNameFunction("ppk-Shoot-Normal");
-        
+                StartCoroutine(FireMuzzle());
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ppk-Shoot-Normal"))
                 {
                     _anim.Play("ppk-Shoot-Normal");
@@ -208,7 +210,7 @@ public class CPPK : CArmed
               
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
-               
+                StartCoroutine(FireMuzzle());
 
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("PPK-Fire-NotAmmo"))
                 {
@@ -492,6 +494,13 @@ public class CPPK : CArmed
         _canShoot = true;
 
     }
+    IEnumerator FireMuzzle()
+    {
+        MuzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        MuzzleFlash.SetActive(false);
+    }
+
     IEnumerator ShootgunNotAmmo()
     {
         yield return new WaitForSeconds(fire_rate);

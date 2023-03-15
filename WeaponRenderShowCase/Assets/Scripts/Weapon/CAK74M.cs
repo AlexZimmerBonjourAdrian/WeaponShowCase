@@ -82,6 +82,8 @@ public class CAK74M : CArmed
     [SerializeField]
     private float ShootDelay = 0.5f;
 
+    [SerializeField]
+    private GameObject MuzzleFlash;
     // Start is called before the first frame update
     void Start()
     {
@@ -202,6 +204,7 @@ public class CAK74M : CArmed
                 TimeAudioclip = audioSource.time;
                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
                 VFXMP5K.SetRates(1);
+                StartCoroutine(FireMuzzle());
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXSingleFire;
@@ -230,7 +233,8 @@ public class CAK74M : CArmed
                 TimeAudioclip = audioSource.time;
                 audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
                 //currentState = _anim.GetCurrentAnimatorStateInfo(0);
-               
+                VFXMP5K.SetRates(1);
+                StartCoroutine(FireMuzzle());
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXAutoShoot;
@@ -713,6 +717,13 @@ public class CAK74M : CArmed
         float TimeFinish = currentState.normalizedTime;
         IsAnimation = TimeFinish >= 1;
         return IsAnimation;
+    }
+
+    IEnumerator FireMuzzle()
+    {
+        MuzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        MuzzleFlash.SetActive(false);
     }
 
     //private void OnDrawGizmos()

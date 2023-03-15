@@ -99,6 +99,8 @@ public class CM4A1 : CArmed
     [SerializeField] private AudioClip SFXIdleRight;
     public AudioSource audioSource;
 
+    [SerializeField]
+    private GameObject MuzzleFlash;
     // Start is called before the first frame update
     void Start()
     {
@@ -256,7 +258,7 @@ public class CM4A1 : CArmed
                     
                 }
 
-                else if (extra_ammo > 0 && ammo_in_mag >= 1 && ammo_in_mag < mag_size && IsLeft == true /*&& ammo_in_mag < 1*/ /*&& isReload==true*/)
+                 if (extra_ammo > 0 && ammo_in_mag >= 1 && ammo_in_mag < mag_size && IsLeft == true /*&& ammo_in_mag < 1*/ /*&& isReload==true*/)
                 {
                     //iniciar la animacion de recarga que tiene las valas normales
                     audioSource.Stop();
@@ -276,26 +278,40 @@ public class CM4A1 : CArmed
 
                 if (Input.GetKey(KeyCode.Mouse0) && (timeSinceLastShot >= fireRate))
                 {
-                    //if (!isAuto)
-                    //{
-                    //    setState((int)GunState.Shoot);
-                    //}
+                    if (!isAuto)
+                    {
+                        setState((int)GunState.Shoot_Left);
+                    }
                     if (isAuto)
                     {
                         audioSource.Stop();
                         setState((int)GunState.AutoShoot_Left);
                     }
                 }
+
+                else if(Input.GetKey(KeyCode.Mouse0) && (timeSinceLastShot >= fireRate) && IsLeft == false)
+                {
+                    if (!isAuto)
+                    {
+                        setState((int)GunState.Shoot_Right);
+                    }
+                    if (isAuto)
+                    {
+                        audioSource.Stop();
+                        setState((int)GunState.AutoShoot_Right);
+                    }
+                }
                 else
                 {
                     timeSinceLastShot += Time.deltaTime;
                 }
+
                 break;
 
             case (int)GunState.Shoot_Right:
                 AnimationNameFunction("m4a1-Fire");
                 VFXMP5K.SetRates(1);
-
+                StartCoroutine(FireMuzzle());
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXSingleFireRight;
@@ -326,9 +342,9 @@ public class CM4A1 : CArmed
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 Debug.Log("Estado actual" + state);
                 TimeFinish = currentState.normalizedTime;
-                AnimationNameFunction("m4a1-Fire");
-         
-
+                AnimationNameFunction("Shoot_Left");
+                StartCoroutine(FireMuzzle());
+                StartCoroutine(FireMuzzle());
                 VFXMP5K.SetRates(1);
 
                 if (!audioSource.isPlaying)
@@ -356,7 +372,7 @@ public class CM4A1 : CArmed
                 Debug.LogWarning("timeSinceLastShot es" + timeSinceLastShot);
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
-
+                StartCoroutine(FireMuzzle());
 
                 AnimationNameFunction("m4a1-Shoot-Auto");
                 if (!audioSource.isPlaying && (ammo_in_mag > 0))
@@ -377,6 +393,7 @@ public class CM4A1 : CArmed
                     }
                     Debug.Log("Entra");
                     //_anim.Play("mp5k-shoot-automatic");
+                    StartCoroutine(FireMuzzle());
                     Fire();
                     VFXMP5K.SetRates(ammo_in_mag);
                     timeSinceLastShot = 0f;
@@ -401,10 +418,12 @@ public class CM4A1 : CArmed
                 break;
 
             case (int)GunState.AutoShoot_Left:
-
+                Debug.LogWarning("timeSinceLastShot es" + timeSinceLastShot);
+                currentState = _anim.GetCurrentAnimatorStateInfo(0);
+                TimeFinish = currentState.normalizedTime;
 
                 AnimationNameFunction("m4a1-Shoot-Auto");
-
+                StartCoroutine(FireMuzzle());
                 if (!audioSource.isPlaying && (ammo_in_mag > 0))
                 {
                     audioSource.clip = SFXAutoShootLeft;
@@ -429,6 +448,7 @@ public class CM4A1 : CArmed
                     }
                     Debug.Log("Entra");
                     //_anim.Play("mp5k-shoot-automatic");
+                    StartCoroutine(FireMuzzle());
                     Fire();
                     VFXMP5K.SetRates(ammo_in_mag);
                     timeSinceLastShot = 0f;
@@ -882,7 +902,12 @@ public class CM4A1 : CArmed
     {
         base.AnimationNameFunction(nameAnimation);
     }
-
+    IEnumerator FireMuzzle()
+    {
+        MuzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        MuzzleFlash.SetActive(false);
+    }
     public void BulletHole()
     {
         //Ray rayOriginal = Camera.main.ScreenPointToRay(Input.mousePosition);

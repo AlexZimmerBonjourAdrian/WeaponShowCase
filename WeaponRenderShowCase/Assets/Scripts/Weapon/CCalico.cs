@@ -80,6 +80,8 @@ public class CCalico : CArmed
     [SerializeField] private AudioClip SFXIdle;
 
 
+    [SerializeField]
+    private GameObject MuzzleFlash;
     // Start is called before the first frame update
     void Start()
     {
@@ -110,10 +112,13 @@ public class CCalico : CArmed
         AnimatorStateInfo currentState = _anim.GetCurrentAnimatorStateInfo(0);
         Debug.Log("Estado actual" + state);
         float TimeFinish = currentState.normalizedTime;
+
         switch (state)
         {
             case (int)GunState.Idle:
                 AnimationNameFunction("Calico-Idle");
+                float TimeAudioclip = audioSource.time;
+                float audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXIdle;
@@ -157,9 +162,11 @@ public class CCalico : CArmed
                 break;
 
             case (int)GunState.Shoot:
-
+                TimeAudioclip = audioSource.time;
+                audioNormalized = (TimeAudioclip - 0) / (TimeAudioclip - 0);
                 AnimationNameFunction("Calico-Shoot-Single");
                 VFXMP5K.SetRates(1);
+                StartCoroutine(FireMuzzle());
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = SFXSingleFire;
@@ -583,6 +590,12 @@ public class CCalico : CArmed
         }
     }
 
+    IEnumerator FireMuzzle()
+    {
+        MuzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        MuzzleFlash.SetActive(false);
+    }
     public override void AnimationNameFunction(string nameAnimation)
     {
         base.AnimationNameFunction(nameAnimation);
