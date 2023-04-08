@@ -695,11 +695,14 @@ public class CM4Shootgun : CArmed
             //Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
 
             //Apply damage if you have a method that does it;
-            marketUI.GetComponent<CHitmarket>().Hit();
+            //marketUI.GetComponent<CHitmarket>().Hit();
             //Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
             //rb.constraints = RigidbodyConstraints.None;
             //rb.AddForce(transform.parent.transform.forward * 500);
-            hit_1.collider.GetComponent<Mafioso>().TakeDamage(damage);
+            if(hit_4.collider.GetComponent<CDataEnemy>() != null)
+            { 
+            hit_4.collider.GetComponent<CDataEnemy>().TakeDamage(20f);
+            }
             //Debug.Log(hit.collider.gameObject.GetComponent<CMafioso>().Hearth);
             //Debug.DrawRay(transform.position, transform.forward, Color.red);
             BulletHole(playerCamera.forward);
@@ -714,11 +717,14 @@ public class CM4Shootgun : CArmed
 
             Debug.Log("Hit an Enemy");
 
-            marketUI.GetComponent<CHitmarket>().Hit();
+            //marketUI.GetComponent<CHitmarket>().Hit();
             //Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
             //rb.constraints = RigidbodyConstraints.None;
             //rb.AddForce(transform.parent.transform.forward * 500);
-            hit_1.collider.GetComponent<Mafioso>().TakeDamage(damage);
+            if (hit_4.collider.GetComponent<CDataEnemy>() != null)
+            {
+                hit_1.collider.GetComponent<CDataEnemy>().TakeDamage(20f);
+            }
             //Debug.Log(hit.collider.gameObject.GetComponent<CMafioso>().Hearth);
             //Debug.DrawRay(transform.position, transform.forward, Color.red);
             BulletHole(playerCamera.forward + new Vector3(-.2f, 0f, 0f));
@@ -734,11 +740,14 @@ public class CM4Shootgun : CArmed
             //Apply damage if you have a method that does it;
 
             Debug.Log("Hit an Enemy");
-            marketUI.GetComponent<CHitmarket>().Hit();
+            // marketUI.GetComponent<CHitmarket>().Hit();
             //Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
             //rb.constraints = RigidbodyConstraints.None;
             //rb.AddForce(transform.parent.transform.forward * 500);
-            hit_2.collider.GetComponent<Mafioso>().TakeDamage(damage);
+            if (hit_4.collider.GetComponent<CDataEnemy>() != null)
+            {
+                hit_2.collider.GetComponent<CDataEnemy>().TakeDamage(20f);
+            }
             //Debug.Log(hit.collider.gameObject.GetComponent<CMafioso>().Hearth);
             //Debug.DrawRay(transform.position, transform.forward, Color.red);
             BulletHole(playerCamera.forward + new Vector3(.0f, .1f, 0f));
@@ -750,11 +759,14 @@ public class CM4Shootgun : CArmed
         {
             //Instantiate(impact, hit.point, Quaternion.LookRotation(hit_3.normal));
             Debug.Log("Hit an Enemy");
-            marketUI.GetComponent<CHitmarket>().Hit();
+            //marketUI.GetComponent<CHitmarket>().Hit();
             //Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
             //rb.constraints = RigidbodyConstraints.None;
             //rb.AddForce(transform.parent.transform.forward * 500);
-            hit_3.collider.GetComponent<Mafioso>().TakeDamage(damage);
+            if (hit_4.collider.GetComponent<CDataEnemy>() != null)
+            {
+                hit_3.collider.GetComponent<CDataEnemy>().TakeDamage(20f);
+            }
             //Debug.Log(hit.collider.gameObject.GetComponent<CMafioso>().Hearth);
             //Debug.DrawRay(transform.position, transform.forward, Color.red);
             BulletHole(playerCamera.forward + new Vector3(0f, -1f, 0f));

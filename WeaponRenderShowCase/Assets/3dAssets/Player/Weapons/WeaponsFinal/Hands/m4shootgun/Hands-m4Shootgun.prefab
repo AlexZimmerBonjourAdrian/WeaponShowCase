@@ -770,7 +770,7 @@ MonoBehaviour:
   isCrossing: 0
   collision:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 256
   msBetweenShots: 100
   nextShotTime: 0
   KickBack: 0
@@ -784,7 +784,7 @@ MonoBehaviour:
   ShootPosition: {fileID: 0}
   maskEnemy:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 256
   _WeaponTransform: {fileID: 0}
   NameAnimation: {fileID: 0}
   _canShoot: 0
@@ -801,7 +801,7 @@ MonoBehaviour:
   recoilPattern: []
   LayerEnemy:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 256
   _Shootposition: {fileID: 0}
   range: 30
   ListAnimationDebug: []
