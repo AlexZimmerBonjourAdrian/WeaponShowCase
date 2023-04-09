@@ -56,8 +56,13 @@ public class COrbController : MonoBehaviour
             Anim.SetTrigger("Small");
 
         }
+       
 
         #endregion
 
+    }
+    public Animator getAnimator()
+    {
+        return Anim;
     }
 }

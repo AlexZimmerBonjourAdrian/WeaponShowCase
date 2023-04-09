@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 //using UnityEngine.InputSystem;
 
 public class CPPK : CArmed
@@ -76,6 +77,9 @@ public class CPPK : CArmed
     public AudioSource audioSource;
     [SerializeField]
     private GameObject MuzzleFlash;
+
+  
+    
     new void Start()
     {
        
@@ -121,6 +125,12 @@ public class CPPK : CArmed
     private float ShootDelay = 0.5f;
     [SerializeField]
     protected LayerMask Mask;
+
+    [SerializeField]
+    private GameObject ParticleSummon;
+    [SerializeField]
+    private VisualEffect ParticleExplossionEffect;
+
     void Update()
     {
         AnimatorStateInfo currentState = _anim.GetCurrentAnimatorStateInfo(0);
@@ -304,14 +314,15 @@ public class CPPK : CArmed
                 AnimationNameFunction("ppk-Summon");
                 currentState = _anim.GetCurrentAnimatorStateInfo(0);
                 TimeFinish = currentState.normalizedTime;
-
                 if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("ppk-Summon"))
                 {
                     _anim.Play("ppk-Summon");
 
                 }
-                if (TimeFinish > .9f)
+                
+                if (TimeFinish > .89f)
                 {
+                   
                     setState((int)GunState.Idle);
                 }
 
@@ -410,8 +421,27 @@ public class CPPK : CArmed
     {
         base.Add_ammo(PickUp);
     }
+    private void ActivateParticle()
+    {
+        ParticleSummon.SetActive(true);
+    }
+    private void DesactivateParticle()
+    {
+        ParticleSummon.SetActive(false);
+    }
+    private void ExplosionParticle()
+    {
+        ParticleExplossionEffect.Play();
+    }
+    public void ExecuteExpension()
+    {
+        ParticleSummon.GetComponent<COrbController>().getAnimator().SetTrigger("Big");
+    }
 
-
+    public void ExecuteSmall()
+    {
+        ParticleSummon.GetComponent<COrbController>().getAnimator().SetTrigger("Small");
+    }
 
     public override void LoadInfo()
     {
