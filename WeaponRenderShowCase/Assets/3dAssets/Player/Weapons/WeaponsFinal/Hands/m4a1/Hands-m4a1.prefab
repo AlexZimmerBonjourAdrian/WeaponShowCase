@@ -448,7 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 3b758bbb394ace94bafe600ab5783499, type: 2}
-  weapon_name: Name
+  weapon_name: M4A1
   weapon_description: 
   equip_speed: 1
   unequip_speed: 1

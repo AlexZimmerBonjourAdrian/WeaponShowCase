@@ -601,6 +601,8 @@ public class CMP5K : CArmed
         MuzzleFlash.SetActive(false);
     }
 
+   
+
     public void Fire()
     {
 

@@ -7,7 +7,7 @@ public class CManagerPickUp : MonoBehaviour
 
     public List<Transform> transforms;
    [SerializeField] private List<GameObject> _WeaponAsset;
-
+    private List<GameObject> _PickList;
      private List<CWeaponPickUp> _PickUpList;
     public static CManagerPickUp Inst
     {
@@ -40,14 +40,46 @@ public class CManagerPickUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //for (int i = _pickuplist.count - 1; i >= 0; i--)
+        //for (int i = _PickList.Count - 1; i >= 0; i--)
         //{
-        //    if (_pickuplist[i] == null)
-        //        _pickuplist.removeat(i);
+        //    if (_PickList[i] == null)
+        //        _PickList.RemoveAt(i);
         //}
 
     }
 
+    public GameObject getWeaponAsset(string Name)
+    {
+        switch(Name)
+        {
+            case "MP5K":
+                return _WeaponAsset[0]; 
+            case "M4A1":
+                return _WeaponAsset[1];
+               
+            case "AK74M":
+                return _WeaponAsset[2];
+                
+            case "M4SHOOTGUN":
+                 return _WeaponAsset[3];
+               
+            case "CALICO":
+                return _WeaponAsset[4];
+                
+
+            default:
+                Debug.LogError("No encuentra ninguna arma");
+                break;
+        };
+
+        return null;
+    }
+    public void AddList(CWeaponPickUp obj)
+    {
+       _PickUpList.Add(obj);
+    
+    }
+  
     public void SpawnWeapon(Vector3 post, GameObject _AssetPickUp)
     {
 
@@ -55,7 +87,8 @@ public class CManagerPickUp : MonoBehaviour
 
         CWeaponPickUp newWeapon = obj.GetComponent<CWeaponPickUp>();
         
-        _PickUpList.Add(newWeapon);
+        //_PickUpList.Add(newWeapon);
+        _PickList.Add(obj);
 
     }
    

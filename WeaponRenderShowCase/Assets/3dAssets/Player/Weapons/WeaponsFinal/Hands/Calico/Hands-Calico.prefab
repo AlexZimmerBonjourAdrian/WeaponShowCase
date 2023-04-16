@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 3a360fbc41a0ec3409fa091705a2aa1e, type: 2}
-  weapon_name: Name
+  weapon_name: CALICO
   weapon_description: 
   equip_speed: 1
   unequip_speed: 1

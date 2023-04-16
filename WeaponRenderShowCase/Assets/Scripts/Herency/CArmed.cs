@@ -85,6 +85,8 @@ public class CArmed : MonoBehaviour
     [Header("Interface")]
     [SerializeField] public GameObject marketUI;
 
+    
+
 
     [Header("Shoot")]
     [SerializeField] protected Transform ShootPosition;
@@ -376,7 +378,10 @@ public class CArmed : MonoBehaviour
         return recoilZ;
 
     }
-
+    public virtual int GetAmmoInMag()
+    {
+        return ammo_in_mag;
+    }
     public float GetSnappiness()
     {
         return snappiness;

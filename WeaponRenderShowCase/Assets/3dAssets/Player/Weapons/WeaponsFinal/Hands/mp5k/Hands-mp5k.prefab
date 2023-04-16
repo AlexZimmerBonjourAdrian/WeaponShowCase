@@ -2280,7 +2280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 67740a697f6752e409e5840fe7c77097, type: 2}
-  weapon_name: mp5k
+  weapon_name: MP5K
   weapon_description: 
   equip_speed: 1
   unequip_speed: 1
@@ -2374,7 +2374,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShellEjection: {fileID: 4451476435809661282}
-  MuzzleFlash: {fileID: 8781942766433585527}
 --- !u!4 &4260413844745155886 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d04eafcea1997114e81fd53e421880c9,
@@ -2647,9 +2646,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaabd356c998d7649a105da88b4fa1a8, type: 3}
---- !u!2083052967 &8781942766433585527 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 2421548117057180764, guid: eaabd356c998d7649a105da88b4fa1a8,
-    type: 3}
-  m_PrefabInstance: {fileID: 6360396884122557739}
-  m_PrefabAsset: {fileID: 0}

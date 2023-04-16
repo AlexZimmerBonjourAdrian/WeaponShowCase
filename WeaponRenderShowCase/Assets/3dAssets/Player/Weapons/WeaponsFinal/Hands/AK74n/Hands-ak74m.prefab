@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: b0c10f033fe9f3e4b864382ffb504eef, type: 2}
-  weapon_name: Name
+  weapon_name: AK74M
   weapon_description: 
   equip_speed: 1
   unequip_speed: 1

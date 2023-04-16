@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27d8b2ca7966ef4c9b361fcf9b3f2ab, type: 3}
   m_Name: M4Shootgun
   m_EditorClassIdentifier: 
-  weapon_name: M4
+  weapon_name: M4SHOOTGUN
   weapon_description: Escopeta automatica fiable y adecuado para este trabajo
   equip_speed: 1
   unequip_speed: 1

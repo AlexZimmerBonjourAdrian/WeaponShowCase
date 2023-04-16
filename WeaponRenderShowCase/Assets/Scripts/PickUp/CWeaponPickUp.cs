@@ -13,6 +13,12 @@ public class CWeaponPickUp : MonoBehaviour/* IInteract<GameObject>*/
     //public Transform player, gunContainer, fpsCam;
    [SerializeField] private GameObject _weapon;
 
+    
+
+    //}Header("Data To View Debug")
+    public int bullets;
+    public int bulletInMag;
+
     //public BoxCollider box;
 
     //public float pickUpRange;

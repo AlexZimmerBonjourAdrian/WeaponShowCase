@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27d8b2ca7966ef4c9b361fcf9b3f2ab, type: 3}
   m_Name: Calico
   m_EditorClassIdentifier: 
-  weapon_name: Calico
+  weapon_name: CALICO
   weapon_description: 'Una pistola ametralladora creada por una '
   equip_speed: 0.4
   unequip_speed: 0.4

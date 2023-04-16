@@ -30,7 +30,8 @@ namespace DL
         [SerializeField]private Transform _trasnformWeapon;
         private static CManagerWeapon Inst;
         private GameObject PreviusWeapon;
-
+        private CManagerPickUp ManagerPickUp;
+        public Transform SpawnCollection;
         private void Awake()
         {
             //Auto Preset Prefab
@@ -43,6 +44,7 @@ namespace DL
         private void Start()
         {
             AmmoUI = GameObject.Find("AmmoUi");
+            ManagerPickUp = GameObject.Find("ManagerPickUp").GetComponent<CManagerPickUp>();
         }
         public void Update()
         {
@@ -97,7 +99,7 @@ namespace DL
 
         public void AddWeapon(GameObject Weapon)
         {
-            if(weapons.Count <= 5)
+            if(weapons.Count <= 2)
             {
                 foreach(GameObject w in weapons)
                 {
@@ -249,20 +251,34 @@ namespace DL
         //Probar
         private void DropWeapon()
         {
-            if(Input.GetKeyDown(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.G))
             {
-             
-                //Todo:Dropea el arma, probar
 
+                //Todo:Dropea el arma, probar
+                var nameWeapon = CurrentWeapon.GetComponent<CArmed>().weapon_name;
+                Debug.Log(nameWeapon);
+                GameObject PickUpGameObject = CManagerPickUp.Inst.getWeaponAsset(nameWeapon);
+                Debug.Log(PickUpGameObject.name);
+                
                 //CurrentWeapon = PreviusWeapon;
                 //weapons.Remove(CurrentWeapon);
                 //weapons[0] = CurrentWeapon;
+                PickUpGameObject.GetComponent<CWeaponPickUp>().bulletInMag = CurrentWeapon.GetComponent<CArmed>().GetAmmo_in_Mag();
+                PickUpGameObject.GetComponent<CWeaponPickUp>().bullets = 0;
 
-                CurrentWeapon.GetComponent<CArmed>().Drop();
+                
+               
+
+                //CManagerPickUp.Inst.SpawnWeapon(Vector3.forward * 50,  );
                 selectedWeapon = 0;
+               
+              
                 SelectedWeapon();
                 EquipWeapon();
-                
+                GameObject obj = (GameObject)Instantiate(PickUpGameObject, SpawnCollection.position, Quaternion.identity);
+                CWeaponPickUp newWeapon = obj.GetComponent<CWeaponPickUp>();
+                ManagerPickUp.AddList(newWeapon);
+                CurrentWeapon.GetComponent<CArmed>().Drop();
                 //CurrentWeapon = PreviusWeapon;
                 //selectedWeapon = transform.childCount - 1;
 
@@ -278,38 +294,41 @@ namespace DL
         public void NotCurrentWeapon()
         {
             //Todo: Agregar requisitos y alguna interfaz para indicar que hace y cuanta energia me queda
-            //if(Input.GetKeyDown(KeyCode.Mouse0) && weapons.Count <= 0)
+            //if (Input.GetKeyDown(KeyCode.Mouse0) && weapons.Count <= 0)
             //{
-            //    AutoSpawn();  
+            //    AutoSpawn();
+            //}
+            if(!SearchWeapon(auto_spawn_weapon[0].name))
+            {
+
+                if (Input.GetKeyDown(KeyCode.Alpha1) && weapons.Count <= 0)
+                {
+                    AddWeapon(auto_spawn_weapon[0]);
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha2) && weapons.Count <= 1)
+                {
+                    AddWeapon(auto_spawn_weapon[0]);
+                }
+            }
+
+            //if (Input.GetKeyDown(KeyCode.Alpha3))
+            //{
+            //    AddWeapon(auto_spawn_weapon[2]);
             //}
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                AddWeapon(auto_spawn_weapon[0]);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                AddWeapon(auto_spawn_weapon[1]);
-            }
+            //if (Input.GetKeyDown(KeyCode.Alpha4))
+            //{
+            //    AddWeapon(auto_spawn_weapon[3]);
+            //}
 
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                AddWeapon(auto_spawn_weapon[2]);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                AddWeapon(auto_spawn_weapon[3]);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                AddWeapon(auto_spawn_weapon[4]);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                AddWeapon(auto_spawn_weapon[5]);
-            }
+            //if (Input.GetKeyDown(KeyCode.Alpha5))
+            //{
+            //    AddWeapon(auto_spawn_weapon[4]);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha6))
+            //{
+            //    AddWeapon(auto_spawn_weapon[5]);
+            //}
 
 
         }
@@ -339,6 +358,17 @@ namespace DL
         {
             int autoSpawn = Random.Range(0, auto_spawn_weapon.Length-1);
             AddWeapon(auto_spawn_weapon[autoSpawn]);
+        }
+        private bool SearchWeapon(string Name)
+        {
+            foreach (GameObject w in weapons)
+            {
+                if(w.name == Name)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void UpdateAmmo()

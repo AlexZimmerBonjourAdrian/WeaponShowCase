@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27d8b2ca7966ef4c9b361fcf9b3f2ab, type: 3}
   m_Name: Ppk
   m_EditorClassIdentifier: 
-  weapon_name: Ppk
+  weapon_name: PPK
   weapon_description: Un arma professional para un professional
   equip_speed: 1
   unequip_speed: 1
   reload_speed: 0.9
   accuarcy: 1
   type_Weapon: Pistol
-  recoil: 1
+  recoilX: 1
+  recoilY: 1
+  recoilZ: 1
+  returnSpeed: 1
+  Snappiness: 1
   offset: 0.2
   multidisparo: 0
   exparsion: 1
